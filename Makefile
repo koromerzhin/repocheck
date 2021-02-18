@@ -10,7 +10,7 @@ FRONTFULLNAME   := $(FRONT).1.$$(docker service ps -f 'name=$(FRONT)' $(FRONT) -
 BACK           := $(STACK)_back
 BACKFULLNAME   := $(BACK).1.$$(docker service ps -f 'name=$(BACK)' $(BACK) -q --no-trunc | head -n1)
 
-SUPPORTED_COMMANDS := contributors docker logs git linter
+SUPPORTED_COMMANDS := contributors docker logs git linter update inspect ssh
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
 ifneq "$(SUPPORTS_MAKE_ARGS)" ""
   COMMAND_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -20,11 +20,19 @@ endif
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-apps/package-lock.json: apps/package.json
-	cd apps && npm install
+back/package-lock.json: back/package.json
+	cd back && npm install
 
-apps/node_modules: apps/package-lock.json
-	cd apps && npm install
+back/node_modules: back/package-lock.json
+	cd back && npm install
+
+
+front/package-lock.json: front/package.json
+	cd front && npm install
+
+front/node_modules: front/package-lock.json
+	cd front && npm install
+
 
 package-lock.json: package.json
 	@npm install
@@ -60,6 +68,7 @@ else ifeq ($(COMMAND_ARGS),deploy)
 	@docker stack deploy -c docker-compose.yml $(STACK)
 else ifeq ($(COMMAND_ARGS),image-pull)
 	@docker image pull koromerzhin/nodejs:1.1.3-quasar
+	@docker image pull koromerzhin/nodejs:15.1.0-express
 else ifeq ($(COMMAND_ARGS),ls)
 	@docker stack services $(STACK)
 else ifeq ($(COMMAND_ARGS),stop)
@@ -112,7 +121,8 @@ else
 	@echo "status: status"
 endif
 
-install: node_modules apps/node_modules ## Installation
+install: node_modules back/node_modules front/node_modules ## Installation
+	@make docker image-pull -i
 	@make docker deploy -i
 
 linter: node_modules ## Scripts Linter

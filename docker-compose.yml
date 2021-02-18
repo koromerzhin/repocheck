@@ -3,6 +3,9 @@ version: "3.4"
 networks:
   proxynetwork:
     external: true
+  net:
+    driver: overlay
+    attachable: true
 services:
   front:
     image: koromerzhin/nodejs:1.1.3-quasar
@@ -10,10 +13,27 @@ services:
       - ${PWD}/front:/app
     networks:
       - proxynetwork
+      - net
+    depends_on:
+      - back
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.repocheck.rule=Host(`repocheck.traefik.me`)"
-        - "traefik.http.routers.repocheck-tls.tls.domains[0].main=repocheck.traefik.me"
-        - "traefik.http.routers.repocheck-tls.tls.domains[0].sans=repocheck-*.traefik.me"
-        - "traefik.http.services.repocheck.loadbalancer.server.port=4200"
+        - "traefik.http.routers.front-repocheck.rule=Host(`front-repocheck.traefik.me`)"
+        - "traefik.http.routers.front-repocheck-tls.tls.domains[0].main=front-repocheck.traefik.me"
+        - "traefik.http.routers.front-repocheck-tls.tls.domains[0].sans=front-repocheck-*.traefik.me"
+        - "traefik.http.services.front-repocheck.loadbalancer.server.port=8080"
+  back:
+    image: koromerzhin/nodejs:15.1.0-express
+    volumes:
+      - ${PWD}/back:/app
+    networks:
+      - proxynetwork
+      - net
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.back-repocheck.rule=Host(`back-repocheck.traefik.me`)"
+        - "traefik.http.routers.back-repocheck-tls.tls.domains[0].main=back-repocheck.traefik.me"
+        - "traefik.http.routers.back-repocheck-tls.tls.domains[0].sans=back-repocheck-*.traefik.me"
+        - "traefik.http.services.back-repocheck.loadbalancer.server.port=3000"
