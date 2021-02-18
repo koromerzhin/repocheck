@@ -126,8 +126,8 @@ module.exports = configure(function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Quasar App',
-        short_name: 'Quasar App',
+        name: 'Repo Check',
+        short_name: 'Repo Check',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',

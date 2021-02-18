@@ -1,4 +1,4 @@
-# Quasar App (test-quasar)
+# Repo Check (test-quasar)
 
 A Quasar Framework app
 

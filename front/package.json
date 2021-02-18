@@ -2,7 +2,7 @@
   "name": "test-quasar",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Repo Check",
   "author": "koromerzhin <308012+koromerzhin@users.noreply.github.com>",
   "private": true,
   "scripts": {
