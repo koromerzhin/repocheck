@@ -1,5 +1,5 @@
 {
-  "projectName": "template-github",
+  "projectName": "repocheck",
   "projectOwner": "koromerzhin",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -20,54 +20,6 @@
       "profile": "https://github.com/koromerzhin",
       "contributions": [
         "code"
-      ]
-    },
-    {
-      "login": "renovate[bot]",
-      "name": "renovate[bot]",
-      "avatar_url": "https://avatars1.githubusercontent.com/in/2740?v=4",
-      "profile": "https://github.com/apps/renovate",
-      "contributions": [
-        "bug",
-        "code",
-        "infra",
-        "maintenance",
-        "platform",
-        "review",
-        "security",
-        "tool"
-      ]
-    },
-    {
-      "login": "restyled-io[bot]",
-      "name": "restyled-io[bot]",
-      "avatar_url": "https://avatars0.githubusercontent.com/in/5851?v=4",
-      "profile": "https://github.com/apps/restyled-io",
-      "contributions": [
-        "bug",
-        "code",
-        "infra",
-        "maintenance",
-        "platform",
-        "review",
-        "security",
-        "tool"
-      ]
-    },
-    {
-      "login": "dependabot[bot]",
-      "name": "dependabot[bot]",
-      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
-      "profile": "https://github.com/apps/dependabot",
-      "contributions": [
-        "bug",
-        "code",
-        "infra",
-        "maintenance",
-        "platform",
-        "review",
-        "security",
-        "tool"
       ]
     }
   ]

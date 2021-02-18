@@ -1,16 +1,16 @@
-# Welcome to @koromerzhin/template-github 👋
+# Welcome to @koromerzhin/repocheck 👋
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/koromerzhin/template-github/graphs/commit-activity)
-![Continuous Integration](https://github.com/koromerzhin/template-github/workflows/Continuous%20Integration/badge.svg?branch=develop)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/koromerzhin/repocheck/graphs/commit-activity)
+![Continuous Integration](https://github.com/koromerzhin/repocheck/workflows/Continuous%20Integration/badge.svg?branch=develop)
 
-> Template de nouveau repository
+> Check mes repos github
 
-## 🏠 [Homepage](https://github.com/koromerzhin/template-github#readme)
+## 🏠 [Homepage](https://github.com/koromerzhin/repocheck#readme)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#-contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#-contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Need
@@ -57,9 +57,9 @@ make help
 
 Contributions, issues and feature requests are welcome!
 Feel free to check
-[issues page](https://github.com/koromerzhin/template-github/issues).
+[issues page](https://github.com/koromerzhin/repocheck/issues).
 You can also take a look at the
-[contributing guide](https://github.com/koromerzhin/template-github/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/koromerzhin/repocheck/blob/develop/CONTRIBUTING.md).
 
 ## Show your support
 
@@ -70,7 +70,7 @@ Give a ⭐️ if this project helped you!
 Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).
 
 This project is
-[MIT](https://github.com/koromerzhin/template-github/blob/develop/LICENSE) licensed.
+[MIT](https://github.com/koromerzhin/repocheck/blob/develop/LICENSE) licensed.
 
 ## ✨ Contributors
 
@@ -83,9 +83,6 @@ Thanks goes to these wonderful people
 <table>
   <tr>
     <td align="center"><a href="https://github.com/koromerzhin"><img src="https://avatars0.githubusercontent.com/u/308012?v=4" width="100px;" alt=""/><br /><sub><b>Le TOULLEC Martial</b></sub></a></td>
-    <td align="center"><a href="https://github.com/apps/renovate"><img src="https://avatars1.githubusercontent.com/in/2740?v=4" width="100px;" alt=""/><br /><sub><b>renovate[bot]</b></sub></a></td>
-    <td align="center"><a href="https://github.com/apps/restyled-io"><img src="https://avatars0.githubusercontent.com/in/5851?v=4" width="100px;" alt=""/><br /><sub><b>restyled-io[bot]</b></sub></a></td>
-    <td align="center"><a href="https://github.com/apps/dependabot"><img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100px;" alt=""/><br /><sub><b>dependabot[bot]</b></sub></a></td>
   </tr>
 </table>
 
