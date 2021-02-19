@@ -83,7 +83,7 @@ router.get('/public', async function (req, res, next) {
     params += ` after:"${req.query['after']}"`
   }
   const result = await getRepositories('PUBLIC,', params);
-  res.send([result]);
+  res.json(result);
 });
 router.get('/private', async function (req, res, next) {
   let total = totalParPage;
@@ -95,7 +95,7 @@ router.get('/private', async function (req, res, next) {
     params += ` after:"${req.query['after']}"`
   }
   const result = await getRepositories('PRIVATE,', params);
-  res.send([result]);
+  res.json(result);
 });
 
 module.exports = router;
