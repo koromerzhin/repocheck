@@ -102,6 +102,28 @@
           </a>
         </q-td>
         <q-td
+          key="security"
+          :props="props"
+        >
+          <a
+            :href="props.row.url+'/security'"
+            target="_blank"
+          >
+            Security
+          </a>
+        </q-td>
+        <q-td
+          key="insights"
+          :props="props"
+        >
+          <a
+            :href="props.row.url+'/pulse'"
+            target="_blank"
+          >
+            insights
+          </a>
+        </q-td>
+        <q-td
           key="pulls"
           :props="props"
         >
@@ -155,63 +177,77 @@ export default {
       columns: [
         {
           label: 'Name',
-          sortable: false,
+          sortable: true,
           field: 'title',
           align: 'left',
           name: 'title'
         },
         {
           label: 'Is Archive',
-          sortable: false,
+          sortable: true,
           field: 'isArchived',
           align: 'left',
           name: 'isArchived'
         },
         {
           label: 'date',
-          sortable: false,
+          sortable: true,
           field: 'date',
           align: 'left',
           name: 'date'
         },
         {
           label: 'Description',
-          sortable: false,
+          sortable: true,
           field: 'description',
           align: 'left',
           name: 'description'
         },
         {
           label: 'Languages',
-          sortable: false,
+          sortable: true,
           field: 'languagesShow',
           align: 'left',
           name: 'languagesShow'
         },
         {
           label: 'license',
-          sortable: false,
+          sortable: true,
           field: 'licenseInfo',
           align: 'left',
           name: 'licenseInfo'
         },
         {
           label: 'issues',
-          sortable: false,
+          sortable: true,
           field: 'showissue',
           align: 'left',
           name: 'showissue'
         },
         {
+          label: 'security',
+          sortable: true,
+          field: 'security',
+          align: 'left',
+          name: 'security'
+        },
+        {
+          label: 'insights',
+          sortable: true,
+          field: 'insights',
+          align: 'left',
+          name: 'insights'
+        },
+        {
           label: 'Pull requests',
-          sortable: false,
+          sortable: true,
           field: 'pulls',
           align: 'left',
           name: 'pulls'
         },
         {
           label: 'default branch',
-          sortable: false,
+          sortable: true,
           field: 'defaultBranchRef',
           align: 'left',
           name: 'defaultBranchRef'
@@ -219,7 +255,7 @@ export default {
         {
           label: 'Etat',
           labeld: 'etat',
-          sortable: false,
+          sortable: true,
           field: 'etat',
           align: 'left',
           name: 'etat'
