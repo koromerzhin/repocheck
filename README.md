@@ -10,7 +10,9 @@
 ## 🏠 [Homepage](https://github.com/koromerzhin/repocheck#readme)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#-contributors)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Need
@@ -26,8 +28,8 @@ Software:
 cp back/.env.dist back/.env
 ```
 
-Generate new [token](https://github.com/settings/tokens)
-with all scopes and edit back/.env to add value to VUE_APP_GITHUB_TOKEN
+Generate new [token](https://github.com/settings/tokens) with all scopes and
+edit back/.env to add value to VUE_APP_GITHUB_TOKEN
 
 ```sh
 make install
@@ -62,10 +64,9 @@ make help
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!
-Feel free to check
-[issues page](https://github.com/koromerzhin/repocheck/issues).
-You can also take a look at the
+Contributions, issues and feature requests are welcome! Feel free to check
+[issues page](https://github.com/koromerzhin/repocheck/issues). You can also
+take a look at the
 [contributing guide](https://github.com/koromerzhin/repocheck/blob/develop/CONTRIBUTING.md).
 
 ## Show your support
