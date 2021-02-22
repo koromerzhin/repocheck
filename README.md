@@ -23,6 +23,12 @@ Software:
 ## Install
 
 ```sh
+cp back/.env.dist back/.env
+```
+
+Generate new [token](https://github.com/settings/tokens) with all scopes and edit back/.env to add value to VUE_APP_GITHUB_TOKEN
+
+```sh
 make install
 ```
 
