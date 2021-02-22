@@ -5,6 +5,7 @@
     :columns="columns"
     row-key="title"
     dense
+    :lodading="loading"
     :rows-per-page-options="[0]"
     :pagination.sync="pagination"
   >
@@ -143,6 +144,10 @@ export default {
     repositories: {
       type: Array,
       default: null
+    },
+    loading: {
+      type: Boolean,
+      default: true
     }
   },
   data () {

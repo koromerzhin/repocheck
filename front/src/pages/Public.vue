@@ -1,8 +1,14 @@
 <template>
-  <q-page class="flex">
+  <q-page
+    class="flex layout-padding"
+  >
     <Repositories
+      loading="loading"
       :repositories="repositories"
     />
+    <q-inner-loading :showing="visible">
+      <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
   </q-page>
 </template>
 
@@ -16,6 +22,8 @@ export default {
   },
   data () {
     return {
+      loading: false,
+      visible: true,
       repositories: [],
       totalCount: 0,
       endCursor: ''
@@ -52,6 +60,11 @@ export default {
         params.after = this.endCursor
         this.getRepositories(url, params)
       } else {
+        this.visible = false
+        this.$q.notify({
+          message: `${this.repositories.length} repositories public`,
+          color: 'purple'
+        })
         this.data = this.repositories
       }
     }
