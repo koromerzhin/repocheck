@@ -26,13 +26,11 @@ back/package-lock.json: back/package.json
 back/node_modules: back/package-lock.json
 	cd back && npm install
 
-
 front/package-lock.json: front/package.json
 	cd front && npm install
 
 front/node_modules: front/package-lock.json
 	cd front && npm install
-
 
 package-lock.json: package.json
 	@npm install
