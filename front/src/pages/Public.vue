@@ -8,7 +8,6 @@
 
 <script>
 import Repositories from 'src/components/Repositories'
-import axios from 'axios'
 
 export default {
   name: 'PagePublic',
@@ -35,7 +34,7 @@ export default {
       )
     },
     async getRepositories (url, params) {
-      await axios.get(
+      await this.$axios.get(
         url,
         {
           params: params
