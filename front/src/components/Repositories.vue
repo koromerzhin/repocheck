@@ -7,8 +7,6 @@
     dense
     :rows-per-page-options="[0]"
     :pagination.sync="pagination"
-    hide-header
-    hide-bottom
   >
     <template
       v-slot:body="props"
