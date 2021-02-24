@@ -85,20 +85,25 @@
           </span>
         </q-td>
         <q-td
-          key="showissue"
+          key="issueOpen"
           :props="props"
         >
           <a
             :href="clickIssue(props.row)"
             target="_blank"
           >
-            <q-btn
-              target="_blank"
-              fab
-              small
-            >
-              {{ props.row.issuesOpen.totalCount }} / {{ props.row.issuesClose.totalCount }}
-            </q-btn>
+            {{ props.row.issuesOpen.totalCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="issueClose"
+          :props="props"
+        >
+          <a
+            :href="clickIssue(props.row)"
+            target="_blank"
+          >
+            {{ props.row.issuesClose.totalCount }}
           </a>
         </q-td>
         <q-td
@@ -124,20 +129,25 @@
           </a>
         </q-td>
         <q-td
-          key="pulls"
+          key="pullsopen"
           :props="props"
         >
           <a
-            :href="clickPulls(props.row)"
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/pulls'"
             target="_blank"
           >
-            <q-btn
-              target="_blank"
-              fab
-              small
-            >
-              {{ props.row.pullRequestOpen.totalCount }} / {{ props.row.pullRequestClose.totalCount }}
-            </q-btn>
+            {{ props.row.pullRequestOpen.totalCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="pullsclose"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/pulls?q=is%3Apr+is%3Aclosed'"
+            target="_blank"
+          >
+            {{ props.row.pullRequestClose.totalCount }}
           </a>
         </q-td>
         <q-td
@@ -178,72 +188,81 @@ export default {
         {
           label: 'Name',
           sortable: true,
-          field: 'title',
+          field: row => row.name,
           align: 'left',
           name: 'title'
         },
         {
           label: 'Is Archive',
           sortable: true,
-          field: 'isArchived',
+          field: row => row.isArchived,
           align: 'left',
           name: 'isArchived'
         },
         {
           label: 'date',
-          sortable: true,
-          field: 'date',
+          sortable: false,
           align: 'left',
           name: 'date'
         },
         {
           label: 'Description',
-          sortable: true,
-          field: 'description',
+          sortable: false,
           align: 'left',
           name: 'description'
         },
         {
           label: 'Languages',
-          sortable: true,
-          field: 'languagesShow',
+          sortable: false,
           align: 'left',
           name: 'languagesShow'
         },
         {
           label: 'license',
           sortable: true,
-          field: 'licenseInfo',
+          field: row => row.licenseInfo.name,
           align: 'left',
           name: 'licenseInfo'
         },
         {
-          label: 'issues',
+          label: 'issues Open',
           sortable: true,
-          field: 'showissue',
+          field: row => row.issuesOpen.totalCount,
           align: 'left',
-          name: 'showissue'
+          name: 'issueOpen'
+        },
+        {
+          label: 'issues Close',
+          sortable: true,
+          field: row => row.issuesClose.totalCount,
+          align: 'left',
+          name: 'issueClose'
         },
         {
           label: 'security',
-          sortable: true,
-          field: 'security',
+          sortable: false,
           align: 'left',
           name: 'security'
         },
         {
           label: 'insights',
-          sortable: true,
-          field: 'insights',
+          sortable: false,
           align: 'left',
           name: 'insights'
         },
         {
-          label: 'Pull requests',
+          label: 'Pull requests Open',
           sortable: true,
-          field: 'pulls',
+          field: row => row.pullRequestOpen.totalCount,
           align: 'left',
-          name: 'pulls'
+          name: 'pullsopen'
+        },
+        {
+          label: 'Pull requests Close',
+          sortable: true,
+          field: row => row.pullRequestClose.totalCount,
+          align: 'left',
+          name: 'pullsclose'
         },
         {
           label: 'default branch',
@@ -254,9 +273,7 @@ export default {
         },
         {
           label: 'Etat',
-          labeld: 'etat',
-          sortable: true,
-          field: 'etat',
+          sortable: false,
           align: 'left',
           name: 'etat'
         }
@@ -280,9 +297,6 @@ export default {
         '/workflows/Continuous%20Integration/badge.svg?branch=' +
         item.defaultBranchRef.name
       )
-    },
-    clickPulls (item) {
-      return 'https://github.com/' + item.owner.login + '/' + item.name + '/pulls'
     },
     clickIssue (item) {
       return 'https://github.com/' + item.owner.login + '/' + item.name + '/issues'

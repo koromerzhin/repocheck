@@ -3,17 +3,14 @@
     class="flex layout-padding"
   >
     <Repositories
-      loading="loading"
       :repositories="repositories"
     />
-    <q-inner-loading :showing="visible">
-      <q-spinner-gears size="50px" color="primary" />
-    </q-inner-loading>
   </q-page>
 </template>
 
 <script>
 import Repositories from 'src/components/Repositories'
+import { Loading, QSpinnerGears } from 'quasar'
 export default {
   name: 'PagePrivate',
   components: {
@@ -21,8 +18,6 @@ export default {
   },
   data () {
     return {
-      loading: false,
-      visible: true,
       repositories: [],
       totalCount: 0,
       endCursor: ''
@@ -33,6 +28,9 @@ export default {
   },
   methods: {
     getPublic () {
+      Loading.show({
+        spinner: QSpinnerGears
+      })
       this.getRepositories(
         'http://back-repocheck.traefik.me/repositories/private',
         {
@@ -59,7 +57,7 @@ export default {
         params.after = this.endCursor
         this.getRepositories(url, params)
       } else {
-        this.visible = false
+        Loading.hide()
         this.$q.notify({
           message: `${this.repositories.length} repositories private`,
           color: 'purple'
