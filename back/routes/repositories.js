@@ -16,57 +16,61 @@ async function getRepositories(privacy, param)
   const query =  `
   {
     viewer {
-        repositories(privacy:${privacy},${param}) {
-            totalCount,
-            pageInfo {
-                endCursor,
-                startCursor
-            }
-            edges {
-                node {
-                    id,
-                    createdAt,
-                    updatedAt,
-                    pushedAt,
-                    description,
-                    url,
-                    isArchived,
-                    name,
-                    issuesOpen: issues(states:OPEN){
-                        totalCount
-                    },
-                    issuesClose: issues(states:CLOSED){
-                        totalCount
-                    },
-                    owner{
-                        login
-                    },
-                    licenseInfo {
-                        id,
-                        name
-                    },
-                    pullRequestOpen: pullRequests(states:OPEN){
-                        totalCount
-                    },
-                    pullRequestClose: pullRequests(states:CLOSED){
-                        totalCount
-                    },
-                    defaultBranchRef{
-                        name
-                    },
-                    languages(first:10){
-                        totalCount,
-                        edges {
-                            node {
-                                id,
-                                color,
-                                name
-                            }
-                        }
-                    }
-                }
-            }
+      repositories(privacy:${privacy},${param}) {
+        totalCount,
+        pageInfo {
+          endCursor,
+          startCursor
         }
+        edges {
+          node {
+            id
+            createdAt
+            updatedAt
+            pushedAt
+            description
+            url
+            isArchived
+            name
+            issuesOpen: issues(states: OPEN) {
+              totalCount
+            }
+            issuesClose: issues(states: CLOSED) {
+              totalCount
+            }
+            owner {
+              login
+            }
+            licenseInfo {
+              name
+            }
+            pullRequestOpen: pullRequests(states: OPEN) {
+              totalCount
+            }
+            pullRequestClose: pullRequests(states: CLOSED) {
+              totalCount
+            }
+            defaultBranchRef {
+              name
+            }
+            stargazerCount
+            forkCount
+            releases(first: 1) {
+              totalCount
+            }
+            languages(first: 10) {
+              totalCount
+              edges {
+                node {
+                  id
+                  color
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }`;
   return await graphqlWithAuth(query);

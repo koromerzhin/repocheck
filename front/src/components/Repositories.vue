@@ -25,6 +25,39 @@
           </a>
         </q-td>
         <q-td
+          key="stargazer"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/stargazers'"
+            target="_blank"
+          >
+            {{ props.row.stargazerCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="fork"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/network/members'"
+            target="_blank"
+          >
+            {{ props.row.forkCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="fork"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/releases'"
+            target="_blank"
+          >
+            {{ props.row.releases.totalCount }}
+          </a>
+        </q-td>
+        <q-td
           key="isArchived"
           :props="props"
         >
@@ -89,7 +122,7 @@
           :props="props"
         >
           <a
-            :href="clickIssue(props.row)"
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/issues'"
             target="_blank"
           >
             {{ props.row.issuesOpen.totalCount }}
@@ -100,7 +133,7 @@
           :props="props"
         >
           <a
-            :href="clickIssue(props.row)"
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/issues?q=is%3Aissue+is%3Aclosed'"
             target="_blank"
           >
             {{ props.row.issuesClose.totalCount }}
@@ -160,8 +193,11 @@
           key="etat"
           :props="props"
         >
-            <a :href="clickAction(props.row)" target="_blank">
-            <img :src="imageItem(props.row)" />
+            <a
+                :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/actions'"
+                target="_blank"
+            >
+                <img :src="imageItem(props.row)" />
           </a>
         </q-td>
       </q-tr>
@@ -191,6 +227,27 @@ export default {
           field: row => row.name,
           align: 'left',
           name: 'title'
+        },
+        {
+          label: 'Stargazer',
+          sortable: true,
+          field: row => row.stargazerCount,
+          align: 'left',
+          name: 'stargazer'
+        },
+        {
+          label: 'Forks',
+          sortable: true,
+          field: row => row.forkCount,
+          align: 'left',
+          name: 'fork'
+        },
+        {
+          label: 'Releases',
+          sortable: true,
+          field: row => row.releases.totalCount,
+          align: 'left',
+          name: 'release'
         },
         {
           label: 'Is Archive',
@@ -297,9 +354,6 @@ export default {
         '/workflows/Continuous%20Integration/badge.svg?branch=' +
         item.defaultBranchRef.name
       )
-    },
-    clickIssue (item) {
-      return 'https://github.com/' + item.owner.login + '/' + item.name + '/issues'
     }
   }
 }
