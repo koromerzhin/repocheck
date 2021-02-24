@@ -19,6 +19,17 @@ Software:
 
 - make
 - npm
+- docker
+- repository koromerzhin/traefikproxy
+
+Config:
+
+docker swarm
+
+Hosts:
+
+- repocheck.traefik.me
+- back-repocheck.traefik.me
 
 ## Install
 
