@@ -6,9 +6,11 @@ NETWORK       := proxynetwork
 
 FRONT           := $(STACK)_front
 FRONTFULLNAME   := $(FRONT).1.$$(docker service ps -f 'name=$(FRONT)' $(FRONT) -q --no-trunc | head -n1)
+FRONTRUN       := docker run --rm -v ${PWD}/front:/app -it koromerzhin/nodejs:1.1.3-quasar
 
 BACK           := $(STACK)_back
 BACKFULLNAME   := $(BACK).1.$$(docker service ps -f 'name=$(BACK)' $(BACK) -q --no-trunc | head -n1)
+BACKRUN       := docker run --rm -v ${PWD}/back:/app -it koromerzhin/nodejs:15.1.0-express
 
 SUPPORTED_COMMANDS := contributors docker logs git linter update inspect ssh sleep
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
@@ -20,20 +22,18 @@ endif
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-back/package-lock.json: back/package.json
-	cd back && npm install
+back/node_modules: isdocker images back/package.json
+	$(BACKRUN) npm install
 
-back/node_modules: back/package-lock.json
-	cd back && npm install
-
-front/package-lock.json: front/package.json
-	cd front && npm install
-
-front/node_modules: front/package-lock.json
-	cd front && npm install
+front/node_modules: isdocker images front/package.json
+	$(FRONTRUN) npm install
 
 package-lock.json: package.json
 	@npm install
+
+.PHONY: images
+images: isdocker
+	@make docker image-pull -i
 
 .PHONY: isdocker
 isdocker: ## Docker is launch
@@ -45,9 +45,7 @@ endif
 node_modules: package-lock.json
 	@npm install
 
-build: ## build
-	cd apps && npm run build
-
+.PHONY: contributors
 contributors: node_modules ## Contributors
 ifeq ($(COMMAND_ARGS),add)
 	@npm run contributors add
@@ -59,6 +57,7 @@ else
 	@npm run contributors
 endif
 
+.PHONY: docker
 docker: isdocker ## Scripts docker
 ifeq ($(COMMAND_ARGS),create-network)
 	@docker network create --driver=overlay $(NETWORK)
@@ -82,6 +81,7 @@ else
 	@echo "stop: docker stop"
 endif
 
+.PHONY: logs
 logs: isdocker ## Scripts logs
 ifeq ($(COMMAND_ARGS),stack)
 	@docker service logs -f --tail 100 --raw $(STACK)
@@ -99,6 +99,7 @@ else
 	@echo "back: BACK"
 endif
 
+.PHONY: git
 git: node_modules ## Scripts GIT
 ifeq ($(COMMAND_ARGS),status)
 	@git status
@@ -119,9 +120,11 @@ endif
 sleep: ## sleep
 	@sleep  $(COMMAND_ARGS)
 
+.PHONY: install
 install: node_modules back/node_modules front/node_modules ## Installation
 	@make docker deploy -i
 
+.PHONY: linter
 linter: node_modules ## Scripts Linter
 ifeq ($(COMMAND_ARGS),all)
 	@make linter readme -i
@@ -136,6 +139,7 @@ else
 	@echo "readme: linter README.md"
 endif
 
+.PHONY: ssh
 ssh: isdocker ## ssh
 ifeq ($(COMMAND_ARGS),front)
 	@docker exec -it $(FRONTFULLNAME) /bin/bash
@@ -150,6 +154,7 @@ else
 	@echo "back: BACK"
 endif
 
+.PHONY: inspect
 inspect: isdocker ## inspect
 ifeq ($(COMMAND_ARGS),front)
 	@docker service inspect $(FRONT)
@@ -164,6 +169,7 @@ else
 	@echo "back: BACK"
 endif
 
+.PHONY: update
 update: isdocker ## ssh
 ifeq ($(COMMAND_ARGS),front)
 	@docker service update $(FRONT)
