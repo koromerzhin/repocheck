@@ -6,11 +6,11 @@ NETWORK       := proxynetwork
 
 FRONT           := $(STACK)_front
 FRONTFULLNAME   := $(FRONT).1.$$(docker service ps -f 'name=$(FRONT)' $(FRONT) -q --no-trunc | head -n1)
-FRONTRUN       := docker run --rm -v ${PWD}/front:/app -it koromerzhin/nodejs:1.1.3-quasar
+FRONTRUN       := docker run --rm -v ${PWD}/front:/app koromerzhin/nodejs:1.1.3-quasar
 
 BACK           := $(STACK)_back
 BACKFULLNAME   := $(BACK).1.$$(docker service ps -f 'name=$(BACK)' $(BACK) -q --no-trunc | head -n1)
-BACKRUN       := docker run --rm -v ${PWD}/back:/app -it koromerzhin/nodejs:15.1.0-express
+BACKRUN       := docker run --rm -v ${PWD}/back:/app koromerzhin/nodejs:15.1.0-express
 
 SUPPORTED_COMMANDS := contributors docker logs git linter update inspect ssh sleep
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
