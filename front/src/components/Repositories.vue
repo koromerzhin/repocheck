@@ -65,7 +65,7 @@
           <span v-else>NO</span>
         </q-td>
         <q-td
-          key="date"
+          key="information"
           :props="props"
         >
           <ul>
@@ -79,24 +79,21 @@
               <b>Pushed AT</b> : {{ props.row.pushedAt }}
             </li>
           </ul>
-        </q-td>
-        <q-td
-          key="description"
-          :props="props"
-        >
           <div class="my-table-details">
             {{ props.row.description }}
           </div>
-        </q-td>
-        <q-td
-          key="languagesShow"
-          :props="props"
-        >
+          <div>
+            <a
+                :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/actions'"
+                target="_blank"
+            >
+                <img :src="imageItem(props.row)" />
+            </a>
+          </div>
           <span
-            v-if="props.row.languages.totalCount == 0"
-          > - </span>
-          <span v-else>
-            {{ props.row.languages.totalCount }} :
+            v-if="props.row.languages.totalCount != 0"
+          >
+            Language {{ props.row.languages.totalCount }} :
             <ul>
               <li
                 v-for="row in props.row.languages.edges"
@@ -106,6 +103,24 @@
               </li>
             </ul>
           </span>
+          <div class="row">
+            <div class="col">
+              <a
+                :href="props.row.url+'/security'"
+                target="_blank"
+              >
+                Security
+              </a>
+            </div>
+            <div class="col">
+              <a
+                :href="props.row.url+'/pulse'"
+                target="_blank"
+              >
+                insights
+              </a>
+            </div>
+          </div>
         </q-td>
         <q-td
           key="licenseInfo"
@@ -140,28 +155,6 @@
           </a>
         </q-td>
         <q-td
-          key="security"
-          :props="props"
-        >
-          <a
-            :href="props.row.url+'/security'"
-            target="_blank"
-          >
-            Security
-          </a>
-        </q-td>
-        <q-td
-          key="insights"
-          :props="props"
-        >
-          <a
-            :href="props.row.url+'/pulse'"
-            target="_blank"
-          >
-            insights
-          </a>
-        </q-td>
-        <q-td
           key="pullsopen"
           :props="props"
         >
@@ -188,17 +181,6 @@
           :props="props"
         >
           {{ props.row.defaultBranchRef.name }}
-        </q-td>
-        <q-td
-          key="etat"
-          :props="props"
-        >
-            <a
-                :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/actions'"
-                target="_blank"
-            >
-                <img :src="imageItem(props.row)" />
-          </a>
         </q-td>
       </q-tr>
     </template>
@@ -257,22 +239,10 @@ export default {
           name: 'isArchived'
         },
         {
-          label: 'date',
+          label: 'Information',
           sortable: false,
           align: 'left',
-          name: 'date'
-        },
-        {
-          label: 'Description',
-          sortable: false,
-          align: 'left',
-          name: 'description'
-        },
-        {
-          label: 'Languages',
-          sortable: false,
-          align: 'left',
-          name: 'languagesShow'
+          name: 'information'
         },
         {
           label: 'license',
@@ -296,18 +266,6 @@ export default {
           name: 'issueClose'
         },
         {
-          label: 'security',
-          sortable: false,
-          align: 'left',
-          name: 'security'
-        },
-        {
-          label: 'insights',
-          sortable: false,
-          align: 'left',
-          name: 'insights'
-        },
-        {
           label: 'Pull requests Open',
           sortable: true,
           field: row => row.pullRequestOpen.totalCount,
@@ -327,12 +285,6 @@ export default {
           field: 'defaultBranchRef',
           align: 'left',
           name: 'defaultBranchRef'
-        },
-        {
-          label: 'Etat',
-          sortable: false,
-          align: 'left',
-          name: 'etat'
         }
       ],
       pagination: {
@@ -342,9 +294,6 @@ export default {
     }
   },
   methods: {
-    clickAction (item) {
-      return 'https://github.com/' + item.owner.login + '/' + item.name + '/actions'
-    },
     imageItem (item) {
       return (
         'https://github.com/' +
