@@ -47,7 +47,7 @@
           </a>
         </q-td>
         <q-td
-          key="fork"
+          key="release"
           :props="props"
         >
           <a
