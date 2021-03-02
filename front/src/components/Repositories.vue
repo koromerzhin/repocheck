@@ -68,6 +68,7 @@
           key="information"
           :props="props"
         >
+          <span>{{ props.row.sshUrl }}</span>
           <ul>
             <li>
               <b>Created AT</b> : {{ props.row.createdAt }}
@@ -98,6 +99,7 @@
               <li
                 v-for="row in props.row.languages.edges"
                 :key="row.id"
+                :style="'color:'+row.node.color+';font-weight: bold;'"
               >
                 {{ row.node.name }}
               </li>
@@ -175,6 +177,23 @@
           >
             {{ props.row.pullRequestClose.totalCount }}
           </a>
+        </q-td>
+        <q-td
+          key="vulnerabilityAlerts"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/security/dependabot'"
+            target="_blank"
+          >
+            {{ props.row.vulnerabilityAlerts.totalCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="submodules"
+          :props="props"
+        >
+          {{ props.row.submodules.totalCount }}
         </q-td>
         <q-td
           key="defaultBranchRef"
@@ -278,6 +297,20 @@ export default {
           field: row => row.pullRequestClose.totalCount,
           align: 'left',
           name: 'pullsclose'
+        },
+        {
+          label: 'Alerts',
+          sortable: true,
+          field: row => row.vulnerabilityAlerts.totalCount,
+          align: 'left',
+          name: 'vulnerabilityAlerts'
+        },
+        {
+          label: 'Submodules',
+          sortable: true,
+          field: row => row.submodules.totalCount,
+          align: 'left',
+          name: 'submodules'
         },
         {
           label: 'default branch',

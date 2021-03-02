@@ -26,6 +26,7 @@ async function getRepositories(privacy, param)
           node {
             id
             createdAt
+            sshUrl
             updatedAt
             pushedAt
             description
@@ -56,6 +57,12 @@ async function getRepositories(privacy, param)
             stargazerCount
             forkCount
             releases(first: 1) {
+              totalCount
+            }
+            vulnerabilityAlerts {
+              totalCount
+            }
+            submodules{
               totalCount
             }
             languages(first: 10) {
