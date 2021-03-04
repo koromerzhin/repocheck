@@ -5,9 +5,6 @@
     :columns="columns"
     row-key="title"
     dense
-    :lodading="loading"
-    :rows-per-page-options="[0]"
-    :pagination.sync="pagination"
   >
     <template
       v-slot:body="props"
@@ -118,11 +115,7 @@ export default {
           align: 'left',
           name: 'repositories'
         }
-      ],
-      pagination: {
-        page: 1,
-        rowsPerPage: 0 // 0 means all rows
-      }
+      ]
     }
   }
 }

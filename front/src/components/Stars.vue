@@ -196,11 +196,7 @@ export default {
           align: 'left',
           name: 'licenseInfo'
         }
-      ],
-      pagination: {
-        page: 1,
-        rowsPerPage: 0 // 0 means all rows
-      }
+      ]
     }
   }
 }
