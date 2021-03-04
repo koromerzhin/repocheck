@@ -11,12 +11,12 @@ const graphqlWithAuth = graphql.defaults(
   }
 )
 
-async function getRepositories(privacy, param)
+async function getRepositories(param)
 {
   const query =  `
   {
     viewer {
-      repositories(privacy:${privacy},${param}) {
+      starredRepositories(${param}) {
         totalCount,
         pageInfo {
           endCursor,
@@ -33,39 +33,12 @@ async function getRepositories(privacy, param)
             url
             isArchived
             name
-            issuesOpen: issues(states: OPEN) {
-              totalCount
-            }
-            issuesClose: issues(states: CLOSED) {
-              totalCount
-            }
-            owner {
-              login
-            }
             licenseInfo {
-              name
-            }
-            pullRequestOpen: pullRequests(states: OPEN) {
-              totalCount
-            }
-            pullRequestClose: pullRequests(states: CLOSED) {
-              totalCount
-            }
-            defaultBranchRef {
               name
             }
             stargazerCount
             forkCount
             releases(first: 1) {
-              totalCount
-            }
-            vulnerabilityAlerts {
-              totalCount
-            }
-            submodules{
-              totalCount
-            }
-            watchers {
               totalCount
             }
             languages(first: 10) {
@@ -87,7 +60,7 @@ async function getRepositories(privacy, param)
 }
 
 /* GET home page. */
-router.get('/public', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
   let total = totalParPage;
   if (req.query['total'] !== undefined) {
     total = parseInt(req.query['total']);
@@ -96,19 +69,7 @@ router.get('/public', async function (req, res, next) {
   if (req.query['after'] !== undefined) {
     params += ` after:"${req.query['after']}"`
   }
-  const result = await getRepositories('PUBLIC,', params);
-  res.json(result);
-});
-router.get('/private', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
-  }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getRepositories('PRIVATE,', params);
+  const result = await getRepositories(params);
   res.json(result);
 });
 

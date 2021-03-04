@@ -3,6 +3,7 @@
     class="flex layout-padding"
   >
     <Repositories
+      title="Repository private"
       :repositories="repositories"
     />
   </q-page>
@@ -10,60 +11,14 @@
 
 <script>
 import Repositories from 'src/components/Repositories'
-import { Loading, QSpinnerGears } from 'quasar'
 export default {
-  name: 'PagePrivate',
+  name: 'Private',
   components: {
     Repositories
   },
-  data () {
-    return {
-      repositories: [],
-      totalCount: 0,
-      endCursor: ''
-    }
-  },
-  mounted () {
-    this.getPublic()
-  },
-  methods: {
-    getPublic () {
-      Loading.show({
-        spinner: QSpinnerGears
-      })
-      this.getRepositories(
-        'http://back-repocheck.traefik.me/repositories/private',
-        {
-          total: 25
-        }
-      )
-    },
-    async getRepositories (url, params) {
-      await this.$axios.get(
-        url,
-        {
-          params: params
-        }
-      ).then(
-        result => {
-          this.endCursor = result.data.viewer.repositories.pageInfo.endCursor
-          this.totalCount = result.data.viewer.repositories.totalCount
-          result.data.viewer.repositories.edges.forEach(repository => {
-            this.repositories.push(repository.node)
-          })
-        }
-      )
-      if (this.repositories.length !== this.totalCount) {
-        params.after = this.endCursor
-        this.getRepositories(url, params)
-      } else {
-        Loading.hide()
-        this.$q.notify({
-          message: `${this.repositories.length} repositories private`,
-          color: 'purple'
-        })
-        this.data = this.repositories
-      }
+  computed: {
+    repositories () {
+      return this.$store.getters['github/getRepositoriesPrivate']
     }
   }
 }

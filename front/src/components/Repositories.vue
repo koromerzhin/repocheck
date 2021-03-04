@@ -1,13 +1,10 @@
 <template>
   <q-table
-    title="Repositories"
+    :title="title"
     :data="repositories"
     :columns="columns"
     row-key="title"
     dense
-    :lodading="loading"
-    :rows-per-page-options="[0]"
-    :pagination.sync="pagination"
   >
     <template
       v-slot:body="props"
@@ -22,6 +19,17 @@
             target="_blank"
           >
             {{ props.row.name }}
+          </a>
+        </q-td>
+        <q-td
+          key="watchers"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/watchers'"
+            target="_blank"
+          >
+            {{ props.row.watchers.totalCount }}
           </a>
         </q-td>
         <q-td
@@ -210,6 +218,10 @@
 export default {
   name: 'Repositories',
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
     repositories: {
       type: Array,
       default: null
@@ -228,6 +240,13 @@ export default {
           field: row => row.name,
           align: 'left',
           name: 'title'
+        },
+        {
+          label: 'Watchers',
+          sortable: true,
+          field: row => row.watchers.totalCount,
+          align: 'left',
+          name: 'watchers'
         },
         {
           label: 'Stargazer',
