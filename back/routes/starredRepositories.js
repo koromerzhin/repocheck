@@ -25,6 +25,9 @@ async function getRepositories(param)
         edges {
           node {
             id
+            owner {
+              login
+            }
             createdAt
             sshUrl
             updatedAt

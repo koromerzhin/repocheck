@@ -26,14 +26,17 @@ async function getFollowers(param)
           node {
             bio
             bioHTML
+            location
             company
-            companyHTML
             avatarUrl
             createdAt
             name
             login
             websiteUrl
             organizations {
+              totalCount
+            },
+            repositories {
               totalCount
             }
           }
