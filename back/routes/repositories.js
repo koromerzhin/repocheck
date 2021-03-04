@@ -1,6 +1,6 @@
-var express = require('express');
-const { graphql } = require("@octokit/graphql");
-var router = express.Router();
+var express = require('express')
+const { graphql } = require("@octokit/graphql")
+var router = express.Router()
 require('dotenv').config()
 const totalParPage = 50;
 const graphqlWithAuth = graphql.defaults(
@@ -82,8 +82,8 @@ async function getRepositories(privacy, param)
         }
       }
     }
-  }`;
-  return await graphqlWithAuth(query);
+  }`
+  return await graphqlWithAuth(query)
 }
 
 /* GET home page. */
