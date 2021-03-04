@@ -10,7 +10,7 @@ export default {
         params: params
       }
     )
-    result.data.viewer.repositories.edges.forEach(async (repository) => {
+    result.data.viewer.repositories.edges.forEach(repository => {
       store.commit('addRepositoryPublic', repository.node)
     })
 
