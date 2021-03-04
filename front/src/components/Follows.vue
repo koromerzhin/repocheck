@@ -1,7 +1,7 @@
 <template>
   <q-table
-    title="Repositories"
-    :data="repositories"
+    :title="title"
+    :data="follows"
     :columns="columns"
     row-key="title"
     dense
@@ -14,14 +14,54 @@
     >
       <q-tr :props="props">
         <q-td
-          key="title"
+          key="avatar"
+          :props="props"
+        >
+          <q-img
+            :src="props.row.avatarUrl"
+            spinner-color="white"
+            style="height: 140px; max-width: 150px"
+          />
+          {{ props.row.name }}
+        </q-td>
+        <q-td
+          key="info"
+          :props="props"
+        >
+          {{ props.row.name }}
+        </q-td>
+        <q-td
+          key="bio"
+          :props="props"
+        >
+          {{ props.row.bio }}
+        </q-td>
+        <q-td
+          key="location"
+          :props="props"
+        >
+          {{ props.row.location }}
+        </q-td>
+        <q-td
+          key="website"
           :props="props"
         >
           <a
-            :href="props.row.url"
+            :href="props.row.websiteUrl"
             target="_blank"
           >
-            {{ props.row.name }}
+          {{ props.row.websiteUrl }}
+          </a>
+        </q-td>
+        <q-td
+          key="repositories"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.login + '?tab=repositories'"
+            target="_blank"
+          >
+          {{ props.row.repositories.totalCount }}
           </a>
         </q-td>
       </q-tr>
@@ -33,9 +73,13 @@
 export default {
   name: 'Follows',
   props: {
-    repositories: {
+    follows: {
       type: Array,
       default: null
+    },
+    title: {
+      type: String,
+      default: ''
     },
     loading: {
       type: Boolean,
@@ -46,11 +90,46 @@ export default {
     return {
       columns: [
         {
+          label: 'avatar',
+          sortable: false,
+          field: row => row.avatarUrl,
+          align: 'left',
+          name: 'avatar'
+        },
+        {
           label: 'Name',
           sortable: true,
           field: row => row.name,
           align: 'left',
           name: 'title'
+        },
+        {
+          label: 'Bio',
+          sortable: false,
+          field: row => row.bio,
+          align: 'left',
+          name: 'false'
+        },
+        {
+          label: 'Location',
+          sortable: true,
+          field: row => row.location,
+          align: 'left',
+          name: 'location'
+        },
+        {
+          label: 'website',
+          sortable: true,
+          field: row => row.websiteUrl,
+          align: 'left',
+          name: 'website'
+        },
+        {
+          label: 'repositories',
+          sortable: true,
+          field: row => row.repositories.count,
+          align: 'left',
+          name: 'repositories'
         }
       ],
       pagination: {

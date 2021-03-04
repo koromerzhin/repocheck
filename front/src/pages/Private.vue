@@ -3,7 +3,7 @@
     class="flex layout-padding"
   >
     <Repositories
-      title="Repository private"
+      title="Repositories private"
       :repositories="repositories"
     />
   </q-page>
