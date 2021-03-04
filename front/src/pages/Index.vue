@@ -9,9 +9,6 @@
 
 <script>
 export default {
-  name: 'PageIndex',
-  mounted () {
-    console.log(this.$route)
-  }
+  name: 'PageIndex'
 }
 </script>

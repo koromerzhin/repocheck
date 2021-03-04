@@ -31,8 +31,11 @@
           <router-link to="/">Essential Links</router-link>
         </q-item-label>
         <ul>
-          <li><router-link to="/public">Public</router-link></li>
-          <li><router-link to="/private">Private</router-link></li>
+          <li><router-link to="public">Public {{ countRepositoriesPublic }}</router-link></li>
+          <li><router-link to="private">Private {{ countRepositoriesPrivate }}</router-link></li>
+          <li><router-link to="followers">Followers {{ countFollowers }}</router-link></li>
+          <li><router-link to="following">Following {{ countFollowing }}</router-link></li>
+          <li><router-link to="star">Star {{ countStar }}</router-link></li>
         </ul>
       </q-list>
     </q-drawer>
@@ -48,7 +51,42 @@ export default {
   name: 'MainLayout',
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      length: 100
+    }
+  },
+  mounted () {
+    this.$store.dispatch('github/getRepositoriesPublic', {
+      total: this.length
+    })
+    this.$store.dispatch('github/getRepositoriesPrivate', {
+      total: this.length
+    })
+    this.$store.dispatch('github/getFollowers', {
+      total: this.length
+    })
+    this.$store.dispatch('github/getFollowing', {
+      total: this.length
+    })
+    this.$store.dispatch('github/getStar', {
+      total: this.length
+    })
+  },
+  computed: {
+    countRepositoriesPublic () {
+      return this.$store.getters['github/getCountRepositoriesPublic']
+    },
+    countRepositoriesPrivate () {
+      return this.$store.getters['github/getCountRepositoriesPrivate']
+    },
+    countFollowers () {
+      return this.$store.getters['github/getCountFollowers']
+    },
+    countFollowing () {
+      return this.$store.getters['github/getCountFollowing']
+    },
+    countStar () {
+      return this.$store.getters['github/getCountStar']
     }
   }
 }
