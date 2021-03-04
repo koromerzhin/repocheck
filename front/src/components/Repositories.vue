@@ -338,11 +338,7 @@ export default {
           align: 'left',
           name: 'defaultBranchRef'
         }
-      ],
-      pagination: {
-        page: 1,
-        rowsPerPage: 0 // 0 means all rows
-      }
+      ]
     }
   },
   methods: {
