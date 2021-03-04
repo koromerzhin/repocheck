@@ -19,15 +19,9 @@
         >
           <q-img
             :src="props.row.avatarUrl"
-            spinner-color="white"
             style="height: 140px; max-width: 150px"
           />
-          {{ props.row.name }}
-        </q-td>
-        <q-td
-          key="info"
-          :props="props"
-        >
+          <br/>
           {{ props.row.name }}
         </q-td>
         <q-td
@@ -97,18 +91,11 @@ export default {
           name: 'avatar'
         },
         {
-          label: 'Name',
-          sortable: true,
-          field: row => row.name,
-          align: 'left',
-          name: 'title'
-        },
-        {
           label: 'Bio',
           sortable: false,
           field: row => row.bio,
           align: 'left',
-          name: 'false'
+          name: 'bio'
         },
         {
           label: 'Location',
