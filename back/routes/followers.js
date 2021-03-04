@@ -25,6 +25,7 @@ async function getFollowers(param)
         edges {
           node {
             bio
+            url
             bioHTML
             location
             company
@@ -35,7 +36,10 @@ async function getFollowers(param)
             websiteUrl
             organizations {
               totalCount
-            },
+            }
+            starredRepositories{
+              totalCount
+            }
             repositories {
               totalCount
             }

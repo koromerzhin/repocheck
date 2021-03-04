@@ -11,7 +11,7 @@
     >
       <q-tr :props="props">
         <q-td
-          key="avatar"
+          key="info"
           :props="props"
         >
           <q-img
@@ -19,25 +19,17 @@
             style="height: 140px; max-width: 150px"
           />
           <br/>
-          {{ props.row.name }}
-        </q-td>
-        <q-td
-          key="bio"
-          :props="props"
-        >
-          {{ props.row.bio }}
-        </q-td>
-        <q-td
-          key="location"
-          :props="props"
-        >
-          {{ props.row.location }}
-        </q-td>
-        <q-td
-          key="website"
-          :props="props"
-        >
           <a
+            :href="props.row.url"
+            target="_blank"
+          >
+            {{ props.row.login }}<span v-if="props.row.name!==null"> ({{ props.row.name }})</span>
+          </a>
+          <br />
+          {{ props.row.location }}
+          <br />
+          <a
+            v-if="props.row.websiteUrl!==null"
             :href="props.row.websiteUrl"
             target="_blank"
           >
@@ -54,6 +46,23 @@
           >
           {{ props.row.repositories.totalCount }}
           </a>
+        </q-td>
+        <q-td
+          key="stars"
+          :props="props"
+        >
+          <a
+            :href="'https://github.com/' + props.row.login + '?tab=stars'"
+            target="_blank"
+          >
+          {{ props.row.starredRepositories.totalCount }}
+          </a>
+        </q-td>
+        <q-td
+          key="bio"
+          :props="props"
+        >
+          {{ props.row.bio }}
         </q-td>
       </q-tr>
     </template>
@@ -83,30 +92,8 @@ export default {
         {
           label: 'avatar',
           sortable: false,
-          field: row => row.avatarUrl,
           align: 'left',
-          name: 'avatar'
-        },
-        {
-          label: 'Bio',
-          sortable: false,
-          field: row => row.bio,
-          align: 'left',
-          name: 'bio'
-        },
-        {
-          label: 'Location',
-          sortable: true,
-          field: row => row.location,
-          align: 'left',
-          name: 'location'
-        },
-        {
-          label: 'website',
-          sortable: true,
-          field: row => row.websiteUrl,
-          align: 'left',
-          name: 'website'
+          name: 'info'
         },
         {
           label: 'repositories',
@@ -114,6 +101,20 @@ export default {
           field: row => row.repositories.count,
           align: 'left',
           name: 'repositories'
+        },
+        {
+          label: 'stars',
+          sortable: true,
+          field: row => row.repositories.count,
+          align: 'left',
+          name: 'stars'
+        },
+        {
+          label: 'Bio',
+          sortable: false,
+          field: row => row.bio,
+          align: 'left',
+          name: 'bio'
         }
       ]
     }
