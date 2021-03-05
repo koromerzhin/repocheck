@@ -25,6 +25,15 @@
           >
             {{ props.row.login }}<span v-if="props.row.name!==null"> ({{ props.row.name }})</span>
           </a>
+
+          <ul>
+            <li>
+              <b>Created AT</b> : {{ props.row.createdAt }}
+            </li>
+            <li>
+              <b>Updated AT</b> : {{ props.row.updatedAt }}
+            </li>
+          </ul>
           <br />
           {{ props.row.location }}
           <br />
@@ -41,7 +50,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.login + '?tab=repositories'"
+            :href="props.row.url + '?tab=repositories'"
             target="_blank"
           >
           {{ props.row.repositories.totalCount }}
@@ -52,7 +61,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.login + '?tab=stars'"
+            :href="props.row.url + '?tab=stars'"
             target="_blank"
           >
           {{ props.row.starredRepositories.totalCount }}

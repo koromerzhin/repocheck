@@ -33,6 +33,8 @@ async function getRepositories(privacy, param)
             url
             isArchived
             name
+            stargazerCount
+            forkCount
             issuesOpen: issues(states: OPEN) {
               totalCount
             }
@@ -54,8 +56,6 @@ async function getRepositories(privacy, param)
             defaultBranchRef {
               name
             }
-            stargazerCount
-            forkCount
             releases(first: 1) {
               totalCount
             }
