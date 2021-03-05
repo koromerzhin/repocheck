@@ -26,7 +26,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/watchers'"
+            :href="props.row.url + '/watchers'"
             target="_blank"
           >
             {{ props.row.watchers.totalCount }}
@@ -37,7 +37,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/stargazers'"
+            :href="props.row.url + '/stargazers'"
             target="_blank"
           >
             {{ props.row.stargazerCount }}
@@ -48,7 +48,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/network/members'"
+            :href="props.row.url + '/network/members'"
             target="_blank"
           >
             {{ props.row.forkCount }}
@@ -59,7 +59,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/releases'"
+            :href="props.row.url + '/releases'"
             target="_blank"
           >
             {{ props.row.releases.totalCount }}
@@ -93,7 +93,7 @@
           </div>
           <div>
             <a
-                :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/actions'"
+                :href="props.row.url + '/actions'"
                 target="_blank"
             >
                 <img :src="imageItem(props.row)" />
@@ -147,7 +147,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/issues'"
+            :href="props.row.url + '/issues'"
             target="_blank"
           >
             {{ props.row.issuesOpen.totalCount }}
@@ -158,7 +158,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/issues?q=is%3Aissue+is%3Aclosed'"
+            :href="props.row.url + '/issues?q=is%3Aissue+is%3Aclosed'"
             target="_blank"
           >
             {{ props.row.issuesClose.totalCount }}
@@ -169,7 +169,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/pulls'"
+            :href="props.row.url + '/pulls'"
             target="_blank"
           >
             {{ props.row.pullRequestOpen.totalCount }}
@@ -180,7 +180,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/pulls?q=is%3Apr+is%3Aclosed'"
+            :href="props.row.url + '/pulls?q=is%3Apr+is%3Aclosed'"
             target="_blank"
           >
             {{ props.row.pullRequestClose.totalCount }}
@@ -191,7 +191,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/security/dependabot'"
+            :href="props.row.url + '/security/dependabot'"
             target="_blank"
           >
             {{ props.row.vulnerabilityAlerts.totalCount }}
@@ -344,10 +344,7 @@ export default {
   methods: {
     imageItem (item) {
       return (
-        'https://github.com/' +
-        item.owner.login +
-        '/' +
-        item.name +
+        item.url +
         '/workflows/Continuous%20Integration/badge.svg?branch=' +
         item.defaultBranchRef.name
       )

@@ -34,6 +34,8 @@ async function getFollowers(param)
             name
             login
             websiteUrl
+            createdAt
+            updatedAt
             organizations {
               totalCount
             }
