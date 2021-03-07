@@ -31,11 +31,11 @@
           <router-link to="/">Essential Links</router-link>
         </q-item-label>
         <ul>
-          <li><router-link to="public">Repositories Public ({{ countRepositoriesPublic }})</router-link></li>
-          <li><router-link to="private">Repositories Private ({{ countRepositoriesPrivate }})</router-link></li>
-          <li><router-link to="followers">Followers ({{ countFollowers }})</router-link></li>
-          <li><router-link to="following">Following ({{ countFollowing }})</router-link></li>
-          <li><router-link to="star">Star ({{ countStar }})</router-link></li>
+          <li><router-link :to="{name: 'public'}">Repositories Public ({{ countRepositoriesPublic }})</router-link></li>
+          <li><router-link :to="{name: 'private'}">Repositories Private ({{ countRepositoriesPrivate }})</router-link></li>
+          <li><router-link :to="{name: 'followers'}">Followers ({{ countFollowers }})</router-link></li>
+          <li><router-link :to="{name: 'following'}">Following ({{ countFollowing }})</router-link></li>
+          <li><router-link :to="{name: 'star'}">Star ({{ countStar }})</router-link></li>
         </ul>
       </q-list>
     </q-drawer>

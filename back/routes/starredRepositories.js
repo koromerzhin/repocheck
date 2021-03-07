@@ -11,7 +11,7 @@ const graphqlWithAuth = graphql.defaults(
   }
 )
 
-async function getRepositories(param)
+async function getStar(param)
 {
   const query =  `
   {
@@ -72,7 +72,7 @@ router.get('/', async function (req, res, next) {
   if (req.query['after'] !== undefined) {
     params += ` after:"${req.query['after']}"`
   }
-  const result = await getRepositories(params);
+  const result = await getStar(params);
   res.json(result);
 });
 
