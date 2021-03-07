@@ -96,7 +96,10 @@
                 :href="props.row.url + '/actions'"
                 target="_blank"
             >
-                <img :src="imageItem(props.row)" />
+                <q-img
+                    :src="imageItem(props.row)"
+                    style="width:205px; height: 20px;"
+                />
             </a>
           </div>
           <span
