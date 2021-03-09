@@ -56,21 +56,25 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('github/getRepositoriesPublic', {
-      total: this.length
-    })
-    this.$store.dispatch('github/getRepositoriesPrivate', {
-      total: this.length
-    })
-    this.$store.dispatch('github/getFollowers', {
-      total: this.length
-    })
-    this.$store.dispatch('github/getFollowing', {
-      total: this.length
-    })
-    this.$store.dispatch('github/getStar', {
-      total: this.length
-    })
+    Promise.all(
+      [
+        this.$store.dispatch('github/getRepositoriesPublic', {
+          total: this.length
+        }),
+        this.$store.dispatch('github/getRepositoriesPrivate', {
+          total: this.length
+        }),
+        this.$store.dispatch('github/getFollowers', {
+          total: this.length
+        }),
+        this.$store.dispatch('github/getFollowing', {
+          total: this.length
+        }),
+        this.$store.dispatch('github/getStar', {
+          total: this.length
+        })
+      ]
+    )
   },
   computed: {
     countRepositoriesPublic () {
