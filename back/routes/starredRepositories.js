@@ -27,6 +27,8 @@ async function getStar(param)
             id
             owner {
               login
+              avatarUrl
+              url
             }
             createdAt
             sshUrl

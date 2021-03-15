@@ -11,6 +11,22 @@
     >
       <q-tr :props="props">
         <q-td
+          key="user"
+          :props="props"
+        >
+          <q-img
+            :src="props.row.owner.avatarUrl"
+            style="height: 140px; max-width: 150px"
+          />
+          <br/>
+          <a
+            :href="props.row.owner.url"
+            target="_blank"
+          >
+            {{ props.row.owner.login }}
+          </a>
+        </q-td>
+        <q-td
           key="title"
           :props="props"
         >
@@ -26,7 +42,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/stargazers'"
+            :href="props.row.owner.url + '/stargazers'"
             target="_blank"
           >
             {{ props.row.stargazerCount }}
@@ -37,7 +53,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/network/members'"
+            :href="props.row.owner.url + '/network/members'"
             target="_blank"
           >
             {{ props.row.forkCount }}
@@ -48,7 +64,7 @@
           :props="props"
         >
           <a
-            :href="'https://github.com/' + props.row.owner.login + '/' + props.row.name + '/releases'"
+            :href="props.row.owner.url + '/releases'"
             target="_blank"
           >
             {{ props.row.releases.totalCount }}
@@ -148,6 +164,12 @@ export default {
   data () {
     return {
       columns: [
+        {
+          label: 'User',
+          sortable: false,
+          align: 'left',
+          name: 'user'
+        },
         {
           label: 'Name',
           sortable: true,
