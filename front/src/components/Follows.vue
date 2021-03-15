@@ -130,12 +130,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .my-table-details {
-  max-width: 400px;
-  white-space: normal;
-  color: #555;
-  margin-top: 4px;
-}
-</style>
