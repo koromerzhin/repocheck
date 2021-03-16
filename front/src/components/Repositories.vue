@@ -73,6 +73,12 @@
           <span v-else>NO</span>
         </q-td>
         <q-td
+          key="topics"
+          :props="props"
+        >
+          {{ props.row.repositoryTopics.totalCount }}
+        </q-td>
+        <q-td
           key="information"
           :props="props"
         >
@@ -102,20 +108,6 @@
                 />
             </a>
           </div>
-          <span
-            v-if="props.row.languages.totalCount != 0"
-          >
-            Language {{ props.row.languages.totalCount }} :
-            <ul>
-              <li
-                v-for="row in props.row.languages.edges"
-                :key="row.id"
-                :style="'color:'+row.node.color+';font-weight: bold;'"
-              >
-                {{ row.node.name }}
-              </li>
-            </ul>
-          </span>
           <div class="row">
             <div class="col">
               <a
@@ -134,6 +126,40 @@
               </a>
             </div>
           </div>
+          <span
+            v-if="props.row.languages.totalCount != 0"
+          >
+            Language :
+            <div class="row">
+              <div
+                v-for="row in props.row.languages.edges"
+                :key="row.id"
+                class="col"
+                :style="'color:'+row.node.color+';font-weight: bold;'"
+              >
+                {{ row.node.name }}
+              </div>
+            </div>
+          </span>
+          <span
+            v-if="props.row.repositoryTopics.totalCount != 0"
+          >
+            Topics :
+            <div class="row">
+              <div
+                v-for="row in props.row.repositoryTopics.nodes"
+                :key="row.id"
+                class="col"
+              >
+                <a
+                  :href="row.url"
+                  target="_blank"
+                >
+                  {{ row.topic.name }}
+                </a>
+              </div>
+            </div>
+          </span>
         </q-td>
         <q-td
           key="licenseInfo"
@@ -278,6 +304,13 @@ export default {
           field: row => row.isArchived,
           align: 'left',
           name: 'isArchived'
+        },
+        {
+          label: 'Topics',
+          sortable: true,
+          field: row => row.repositoryTopics.totalCount,
+          align: 'left',
+          name: 'topics'
         },
         {
           label: 'Information',
