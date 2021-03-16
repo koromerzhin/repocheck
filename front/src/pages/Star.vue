@@ -1,12 +1,10 @@
 <template>
-  <q-page
-    class="flex layout-padding"
-  >
+  <div>
     <Stars
       title="Stars"
       :stars="stars"
     />
-  </q-page>
+  </div>
 </template>
 
 <script>
