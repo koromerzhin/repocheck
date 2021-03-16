@@ -46,6 +46,15 @@ async function getStar(param)
             releases(first: 1) {
               totalCount
             }
+            repositoryTopics(first: 10) {
+              totalCount
+              nodes {
+                url
+                topic {
+                  name
+                }
+              }
+            }
             languages(first: 10) {
               totalCount
               edges {

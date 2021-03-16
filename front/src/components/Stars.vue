@@ -78,6 +78,12 @@
           <span v-else>NO</span>
         </q-td>
         <q-td
+          key="topics"
+          :props="props"
+        >
+          {{ props.row.repositoryTopics.totalCount }}
+        </q-td>
+        <q-td
           key="information"
           :props="props"
         >
@@ -96,20 +102,6 @@
           <div class="my-table-details">
             {{ props.row.description }}
           </div>
-          <span
-            v-if="props.row.languages.totalCount != 0"
-          >
-            Language {{ props.row.languages.totalCount }} :
-            <ul>
-              <li
-                v-for="row in props.row.languages.edges"
-                :key="row.id"
-                :style="'color:'+row.node.color+';font-weight: bold;'"
-              >
-                {{ row.node.name }}
-              </li>
-            </ul>
-          </span>
           <div class="row">
             <div class="col">
               <a
@@ -128,6 +120,39 @@
               </a>
             </div>
           </div>
+          <span
+            v-if="props.row.languages.totalCount != 0"
+          >
+            Language :
+            <div class="row">
+              <div
+                v-for="row in props.row.languages.edges"
+                :key="row.id"
+                class="col"
+                :style="'color:'+row.node.color+';font-weight: bold;'"
+              >
+                {{ row.node.name }}
+              </div>
+            </div>
+          </span>
+          <span
+            v-if="props.row.repositoryTopics.totalCount != 0"
+          >
+            Topics :
+            <ul>
+              <li
+                v-for="row in props.row.repositoryTopics.nodes"
+                :key="row.id"
+              >
+                <a
+                  :href="row.url"
+                  target="_blank"
+                >
+                  {{ row.topic.name }}
+                </a>
+              </li>
+            </ul>
+          </span>
         </q-td>
         <q-td
           key="licenseInfo"
@@ -138,6 +163,12 @@
           >
             {{ props.row.licenseInfo.name }}
           </span>
+        </q-td>
+        <q-td
+          key="updatedat"
+          :props="props"
+        >
+          {{ props.row.updatedAt }}
         </q-td>
       </q-tr>
     </template>
@@ -206,6 +237,13 @@ export default {
           name: 'isArchived'
         },
         {
+          label: 'Topics',
+          sortable: true,
+          field: row => row.repositoryTopics.totalCount,
+          align: 'left',
+          name: 'topics'
+        },
+        {
           label: 'Information',
           sortable: false,
           align: 'left',
@@ -217,6 +255,13 @@ export default {
           field: row => row.licenseInfo.name,
           align: 'left',
           name: 'licenseInfo'
+        },
+        {
+          label: 'Updated At',
+          sortable: true,
+          field: row => row.updatedAt,
+          align: 'left',
+          name: 'updatedat'
         }
       ]
     }
