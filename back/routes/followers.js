@@ -22,29 +22,27 @@ async function getFollowers(param)
           endCursor,
           startCursor
         }
-        edges {
-          node {
-            bio
-            url
-            bioHTML
-            location
-            company
-            avatarUrl
-            createdAt
-            name
-            login
-            websiteUrl
-            createdAt
-            updatedAt
-            organizations {
-              totalCount
-            }
-            starredRepositories{
-              totalCount
-            }
-            repositories {
-              totalCount
-            }
+        nodes {
+          bio
+          url
+          bioHTML
+          location
+          company
+          avatarUrl
+          createdAt
+          name
+          login
+          websiteUrl
+          createdAt
+          updatedAt
+          organizations {
+            totalCount
+          }
+          starredRepositories{
+            totalCount
+          }
+          repositories {
+            totalCount
           }
         }
       }

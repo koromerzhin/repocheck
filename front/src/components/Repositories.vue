@@ -5,6 +5,7 @@
     :columns="columns"
     row-key="title"
     dense
+    separator="cell"
   >
     <template
       v-slot:body="props"
@@ -126,39 +127,44 @@
               </a>
             </div>
           </div>
-          <span
-            v-if="props.row.languages.totalCount != 0"
-          >
-            Language :
-            <div class="row">
-              <div
-                v-for="row in props.row.languages.edges"
-                :key="row.id"
-                class="col"
-                :style="'color:'+row.node.color+';font-weight: bold;'"
+          <div class="row">
+            <div class="col">
+              <span
+                v-if="props.row.languages.totalCount != 0"
               >
-                {{ row.node.name }}
-              </div>
+                Language :
+                <ul>
+                  <li
+                    v-for="row in props.row.languages.nodes"
+                    :key="row.id"
+                    :style="'color:'+row.color+';font-weight: bold;'"
+                  >
+                    {{ row.name }}
+                  </li>
+                </ul>
+              </span>
             </div>
-          </span>
-          <span
-            v-if="props.row.repositoryTopics.totalCount != 0"
-          >
-            Topics :
-            <ul>
-              <li
-                v-for="row in props.row.repositoryTopics.nodes"
-                :key="row.id"
+            <div class="col">
+              <span
+                v-if="props.row.repositoryTopics.totalCount != 0"
               >
-                <a
-                  :href="row.url"
-                  target="_blank"
-                >
-                  {{ row.topic.name }}
-                </a>
-              </li>
-            </ul>
-          </span>
+                Topics :
+                <ul>
+                  <li
+                    v-for="row in props.row.repositoryTopics.nodes"
+                    :key="row.id"
+                  >
+                    <a
+                      :href="row.url"
+                      target="_blank"
+                    >
+                      {{ row.topic.name }}
+                    </a>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </div>
         </q-td>
         <q-td
           key="licenseInfo"

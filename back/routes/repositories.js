@@ -22,70 +22,66 @@ async function getRepositories(privacy, param)
           endCursor,
           startCursor
         }
-        edges {
-          node {
-            id
-            createdAt
-            sshUrl
-            updatedAt
-            pushedAt
-            description
-            url
-            isArchived
+        nodes {
+          id
+          createdAt
+          sshUrl
+          updatedAt
+          pushedAt
+          description
+          url
+          isArchived
+          name
+          stargazerCount
+          forkCount
+          issuesOpen: issues(states: OPEN) {
+            totalCount
+          }
+          issuesClose: issues(states: CLOSED) {
+            totalCount
+          }
+          owner {
+            login
+          }
+          licenseInfo {
             name
-            stargazerCount
-            forkCount
-            issuesOpen: issues(states: OPEN) {
-              totalCount
-            }
-            issuesClose: issues(states: CLOSED) {
-              totalCount
-            }
-            owner {
-              login
-            }
-            licenseInfo {
-              name
-            }
-            pullRequestOpen: pullRequests(states: OPEN) {
-              totalCount
-            }
-            pullRequestClose: pullRequests(states: CLOSED) {
-              totalCount
-            }
-            defaultBranchRef {
-              name
-            }
-            releases(first: 1) {
-              totalCount
-            }
-            vulnerabilityAlerts {
-              totalCount
-            }
-            submodules{
-              totalCount
-            }
-            watchers {
-              totalCount
-            }
-            repositoryTopics(first: 10) {
-              totalCount
-              nodes {
-                url
-                topic {
-                  name
-                }
+          }
+          pullRequestOpen: pullRequests(states: OPEN) {
+            totalCount
+          }
+          pullRequestClose: pullRequests(states: CLOSED) {
+            totalCount
+          }
+          defaultBranchRef {
+            name
+          }
+          releases(first: 1) {
+            totalCount
+          }
+          vulnerabilityAlerts {
+            totalCount
+          }
+          submodules{
+            totalCount
+          }
+          watchers {
+            totalCount
+          }
+          repositoryTopics(first: 10) {
+            totalCount
+            nodes {
+              url
+              topic {
+                name
               }
             }
-            languages(first: 10) {
-              totalCount
-              edges {
-                node {
-                  id
-                  color
-                  name
-                }
-              }
+          }
+          languages(first: 10) {
+            totalCount
+            nodes {
+              id
+              color
+              name
             }
           }
         }

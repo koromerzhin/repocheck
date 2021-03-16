@@ -22,48 +22,44 @@ async function getStar(param)
           endCursor,
           startCursor
         }
-        edges {
-          node {
-            id
-            owner {
-              login
-              avatarUrl
-              url
-            }
-            createdAt
-            sshUrl
-            updatedAt
-            pushedAt
-            description
+        nodes {
+          id
+          owner {
+            login
+            avatarUrl
             url
-            isArchived
+          }
+          createdAt
+          sshUrl
+          updatedAt
+          pushedAt
+          description
+          url
+          isArchived
+          name
+          licenseInfo {
             name
-            licenseInfo {
+          }
+          stargazerCount
+          forkCount
+          releases(first: 1) {
+            totalCount
+          }
+          repositoryTopics(first: 10) {
+            totalCount
+            nodes {
+              url
+              topic {
+                name
+              }
+            }
+          }
+          languages(first: 10) {
+            totalCount
+            nodes {
+              id
+              color
               name
-            }
-            stargazerCount
-            forkCount
-            releases(first: 1) {
-              totalCount
-            }
-            repositoryTopics(first: 10) {
-              totalCount
-              nodes {
-                url
-                topic {
-                  name
-                }
-              }
-            }
-            languages(first: 10) {
-              totalCount
-              edges {
-                node {
-                  id
-                  color
-                  name
-                }
-              }
             }
           }
         }

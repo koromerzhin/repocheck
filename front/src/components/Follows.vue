@@ -5,6 +5,7 @@
     :columns="columns"
     row-key="title"
     dense
+    separator="cell"
   >
     <template
       v-slot:body="props"
