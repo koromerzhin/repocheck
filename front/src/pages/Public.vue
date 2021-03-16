@@ -1,12 +1,10 @@
 <template>
-  <q-page
-    class="flex layout-padding"
-  >
+  <div>
     <Repositories
       title="Repositories public"
       :repositories="repositories"
     />
-  </q-page>
+  </div>
 </template>
 
 <script>

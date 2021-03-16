@@ -1,12 +1,10 @@
 <template>
-  <q-page
-    class="flex layout-padding"
-  >
+  <div>
     <Follows
       title="Following"
       :follows="follows"
     />
-  </q-page>
+  </div>
 </template>
 
 <script>

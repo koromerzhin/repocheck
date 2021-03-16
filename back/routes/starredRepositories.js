@@ -70,7 +70,7 @@ router.get('/', async function (req, res, next) {
   if (req.query['total'] !== undefined) {
     total = parseInt(req.query['total']);
   }
-  let params = `first:${total}`;
+  let params = `first:${total}, orderBy: {field: STARRED_AT, direction: DESC}`;
   if (req.query['after'] !== undefined) {
     params += ` after:"${req.query['after']}"`
   }
