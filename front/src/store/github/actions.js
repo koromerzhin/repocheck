@@ -10,8 +10,8 @@ export default {
         params: params
       }
     )
-    result.data.viewer.repositories.edges.forEach(repository => {
-      store.commit('addRepositoryPublic', repository.node)
+    result.data.viewer.repositories.nodes.forEach(repository => {
+      store.commit('addRepositoryPublic', repository)
     })
 
     store.dispatch('setCountRepositoriesPublic', result.data.viewer.repositories.totalCount)
@@ -30,8 +30,8 @@ export default {
         params: params
       }
     )
-    result.data.viewer.repositories.edges.forEach(repository => {
-      store.commit('addRepositoryPrivate', repository.node)
+    result.data.viewer.repositories.nodes.forEach(repository => {
+      store.commit('addRepositoryPrivate', repository)
     })
 
     store.dispatch('setCountRepositoriesPrivate', result.data.viewer.repositories.totalCount)
@@ -62,8 +62,8 @@ export default {
         params: params
       }
     )
-    result.data.viewer.followers.edges.forEach(follower => {
-      store.commit('addFollowers', follower.node)
+    result.data.viewer.followers.nodes.forEach(follower => {
+      store.commit('addFollowers', follower)
     })
 
     store.dispatch('setCountFollowers', result.data.viewer.followers.totalCount)
@@ -88,8 +88,8 @@ export default {
         params: params
       }
     )
-    result.data.viewer.following.edges.forEach(follower => {
-      store.commit('addFollowing', follower.node)
+    result.data.viewer.following.nodes.forEach(follower => {
+      store.commit('addFollowing', follower)
     })
 
     store.dispatch('setCountFollowing', result.data.viewer.following.totalCount)
@@ -114,8 +114,8 @@ export default {
         params: params
       }
     )
-    result.data.viewer.starredRepositories.edges.forEach(starredRepository => {
-      store.commit('addStar', starredRepository.node)
+    result.data.viewer.starredRepositories.nodes.forEach(starredRepository => {
+      store.commit('addStar', starredRepository)
     })
 
     store.dispatch('setCountStar', result.data.viewer.starredRepositories.totalCount)
