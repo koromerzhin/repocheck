@@ -146,7 +146,6 @@ export default {
     store.commit('setCountFollowing', number)
   },
   setCountStar (store, number) {
-    console.log('NUMBER', number)
     store.commit('setCountStar', number)
   }
 }

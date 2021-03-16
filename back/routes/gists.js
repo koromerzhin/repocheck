@@ -11,38 +11,22 @@ const graphqlWithAuth = graphql.defaults(
   }
 )
 
-async function getFollowing(param)
+async function getGists(param)
 {
   const query =  `
   {
     viewer {
-      following(${param}) {
-        totalCount,
-        pageInfo {
-          endCursor,
-          startCursor
-        }
+      gists(${param}) {
         nodes {
-          bio
-          url
-          bioHTML
-          location
-          company
-          avatarUrl
-          createdAt
+          id
           name
-          login
-          websiteUrl
-          createdAt
-          updatedAt
-          organizations {
-            totalCount
-          }
-          starredRepositories{
-            totalCount
-          }
-          repositories {
-            totalCount
+          files {
+            encodedName
+            encoding
+            extension
+            name
+            size
+            text
           }
         }
       }
@@ -61,7 +45,7 @@ router.get('/', async function (req, res, next) {
   if (req.query['after'] !== undefined) {
     params += ` after:"${req.query['after']}"`
   }
-  const result = await getFollowing(params);
+  const result = await getGists(params);
   res.json(result);
 });
 
