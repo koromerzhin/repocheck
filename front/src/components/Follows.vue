@@ -24,6 +24,8 @@
             :href="props.row.url"
             target="_blank"
           >
+            <router-link :to="{name: 'user', params: {'login': props.row.login }}">{{ props.row.login }}</router-link>
+            <br />
             {{ props.row.login }}<span v-if="props.row.name!==null"> ({{ props.row.name }})</span>
           </a>
 
