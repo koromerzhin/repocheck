@@ -68,6 +68,15 @@ async function getRepositories(privacy, param)
             watchers {
               totalCount
             }
+            repositoryTopics(first: 10) {
+              totalCount
+              nodes {
+                url
+                topic {
+                  name
+                }
+              }
+            }
             languages(first: 10) {
               totalCount
               edges {
