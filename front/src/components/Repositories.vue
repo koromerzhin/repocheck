@@ -103,7 +103,7 @@
                 target="_blank"
             >
                 <q-img
-                    :src="imageItem(props.row)"
+                    :src="props.row.url +'/workflows/Continuous%20Integration/badge.svg?branch=' +props.row.defaultBranchRef.name"
                     style="width:205px; height: 20px;"
                 />
             </a>
@@ -145,11 +145,10 @@
             v-if="props.row.repositoryTopics.totalCount != 0"
           >
             Topics :
-            <div class="row">
-              <div
+            <ul>
+              <li
                 v-for="row in props.row.repositoryTopics.nodes"
                 :key="row.id"
-                class="col"
               >
                 <a
                   :href="row.url"
@@ -157,8 +156,8 @@
                 >
                   {{ row.topic.name }}
                 </a>
-              </div>
-            </div>
+              </li>
+            </ul>
           </span>
         </q-td>
         <q-td
@@ -375,15 +374,6 @@ export default {
           name: 'defaultBranchRef'
         }
       ]
-    }
-  },
-  methods: {
-    imageItem (item) {
-      return (
-        item.url +
-        '/workflows/Continuous%20Integration/badge.svg?branch=' +
-        item.defaultBranchRef.name
-      )
     }
   }
 }

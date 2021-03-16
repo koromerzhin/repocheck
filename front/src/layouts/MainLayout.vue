@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      length: 100
+      length: 50
     }
   },
   mounted () {
