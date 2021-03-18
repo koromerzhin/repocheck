@@ -29,9 +29,11 @@
           <a
             :href="props.row.url + '/watchers'"
             target="_blank"
+            v-if="props.row.watchers.totalCount !== 0"
           >
             {{ props.row.watchers.totalCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="stargazer"
@@ -40,9 +42,11 @@
           <a
             :href="props.row.url + '/stargazers'"
             target="_blank"
+            v-if="props.row.stargazerCount !== 0"
           >
             {{ props.row.stargazerCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="fork"
@@ -51,9 +55,11 @@
           <a
             :href="props.row.url + '/network/members'"
             target="_blank"
+            v-if="props.row.forkCount !== 0"
           >
             {{ props.row.forkCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="release"
@@ -62,9 +68,11 @@
           <a
             :href="props.row.url + '/releases'"
             target="_blank"
+            v-if="props.row.releases.totalCount !== 0"
           >
             {{ props.row.releases.totalCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="isArchived"
@@ -74,10 +82,10 @@
           <span v-else>NO</span>
         </q-td>
         <q-td
-          key="topics"
+          key="updatedAt"
           :props="props"
         >
-          {{ props.row.repositoryTopics.totalCount }}
+          {{ props.row.updatedAt }}
         </q-td>
         <q-td
           key="information"
@@ -98,15 +106,44 @@
           <div class="my-table-details">
             {{ props.row.description }}
           </div>
-          <div>
+          <div v-if="props.row.defaultBranchRef !== null">
             <a
-                :href="props.row.url + '/actions'"
-                target="_blank"
+              :href="props.row.url + '/actions'"
+              target="_blank"
             >
                 <q-img
-                    :src="props.row.url +'/workflows/Continuous%20Integration/badge.svg?branch=' +props.row.defaultBranchRef.name"
-                    style="width:205px; height: 20px;"
+                  :src="props.row.url +'/workflows/Continuous%20Integration/badge.svg?branch=' +props.row.defaultBranchRef.name"
+                  style="width:205px; height: 20px;"
                 />
+            </a>
+          </div>
+          <div
+            v-if="props.row.licenseInfo !== null"
+          >
+            <b>Licence :</b> {{ props.row.licenseInfo.name }}
+          </div>
+          <div v-if="props.row.submodules.totalCount !== 0">
+            <b>Submodule :</b> {{ props.row.submodules.totalCount }}
+          </div>
+          <div v-if="props.row.defaultBranchRef !== null">
+            <b>Default branch :</b> {{ props.row.defaultBranchRef.name }}
+          </div>
+          <div v-if="props.row.issuesClose.totalCount !== 0">
+            <b>Issue Close : </b>
+            <a
+              :href="props.row.url + '/issues?q=is%3Aissue+is%3Aclosed'"
+              target="_blank"
+            >
+              {{ props.row.issuesClose.totalCount }}
+            </a>
+          </div>
+          <div v-if="props.row.pullRequestClose.totalCount !== 0">
+            <b>Pull requests Close : </b>
+            <a
+              :href="props.row.url + '/pulls?q=is%3Apr+is%3Aclosed'"
+              target="_blank"
+            >
+              {{ props.row.pullRequestClose.totalCount }}
             </a>
           </div>
           <div class="row">
@@ -167,36 +204,17 @@
           </div>
         </q-td>
         <q-td
-          key="licenseInfo"
-          :props="props"
-        >
-          <span
-            v-if="props.row.licenseInfo !== null"
-          >
-            {{ props.row.licenseInfo.name }}
-          </span>
-        </q-td>
-        <q-td
           key="issueOpen"
           :props="props"
         >
           <a
             :href="props.row.url + '/issues'"
             target="_blank"
+            v-if="props.row.issuesOpen.totalCount !== 0"
           >
             {{ props.row.issuesOpen.totalCount }}
           </a>
-        </q-td>
-        <q-td
-          key="issueClose"
-          :props="props"
-        >
-          <a
-            :href="props.row.url + '/issues?q=is%3Aissue+is%3Aclosed'"
-            target="_blank"
-          >
-            {{ props.row.issuesClose.totalCount }}
-          </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="pullsopen"
@@ -205,20 +223,11 @@
           <a
             :href="props.row.url + '/pulls'"
             target="_blank"
+            v-if="props.row.pullRequestOpen.totalCount !== 0"
           >
             {{ props.row.pullRequestOpen.totalCount }}
           </a>
-        </q-td>
-        <q-td
-          key="pullsclose"
-          :props="props"
-        >
-          <a
-            :href="props.row.url + '/pulls?q=is%3Apr+is%3Aclosed'"
-            target="_blank"
-          >
-            {{ props.row.pullRequestClose.totalCount }}
-          </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="vulnerabilityAlerts"
@@ -227,21 +236,11 @@
           <a
             :href="props.row.url + '/security/dependabot'"
             target="_blank"
+            v-if="props.row.vulnerabilityAlerts.totalCount !== 0"
           >
             {{ props.row.vulnerabilityAlerts.totalCount }}
           </a>
-        </q-td>
-        <q-td
-          key="submodules"
-          :props="props"
-        >
-          {{ props.row.submodules.totalCount }}
-        </q-td>
-        <q-td
-          key="defaultBranchRef"
-          :props="props"
-        >
-          {{ props.row.defaultBranchRef.name }}
+          <div v-else>---</div>
         </q-td>
       </q-tr>
     </template>
@@ -311,24 +310,17 @@ export default {
           name: 'isArchived'
         },
         {
-          label: 'Topics',
+          label: 'Updated At',
           sortable: true,
-          field: row => row.repositoryTopics.totalCount,
+          field: row => row.updatedAt,
           align: 'left',
-          name: 'topics'
+          name: 'updatedAt'
         },
         {
           label: 'Information',
           sortable: false,
           align: 'left',
           name: 'information'
-        },
-        {
-          label: 'license',
-          sortable: true,
-          field: row => row.licenseInfo.name,
-          align: 'left',
-          name: 'licenseInfo'
         },
         {
           label: 'issues Open',
@@ -338,13 +330,6 @@ export default {
           name: 'issueOpen'
         },
         {
-          label: 'issues Close',
-          sortable: true,
-          field: row => row.issuesClose.totalCount,
-          align: 'left',
-          name: 'issueClose'
-        },
-        {
           label: 'Pull requests Open',
           sortable: true,
           field: row => row.pullRequestOpen.totalCount,
@@ -352,32 +337,11 @@ export default {
           name: 'pullsopen'
         },
         {
-          label: 'Pull requests Close',
-          sortable: true,
-          field: row => row.pullRequestClose.totalCount,
-          align: 'left',
-          name: 'pullsclose'
-        },
-        {
           label: 'Alerts',
           sortable: true,
           field: row => row.vulnerabilityAlerts.totalCount,
           align: 'left',
           name: 'vulnerabilityAlerts'
-        },
-        {
-          label: 'Submodules',
-          sortable: true,
-          field: row => row.submodules.totalCount,
-          align: 'left',
-          name: 'submodules'
-        },
-        {
-          label: 'default branch',
-          sortable: true,
-          field: 'defaultBranchRef',
-          align: 'left',
-          name: 'defaultBranchRef'
         }
       ]
     }
