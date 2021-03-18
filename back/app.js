@@ -7,6 +7,7 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var gistsRouter = require('./routes/gists');
+var userRouter = require('./routes/user');
 var repositoriesRouter = require('./routes/repositories');
 var starredRepositoriesRouter = require('./routes/starredRepositories');
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/repositories/', repositoriesRouter);
+app.use('/user/', userRouter);
 app.use('/gists/', gistsRouter);
 app.use('/starredRepositories/', starredRepositoriesRouter);
 

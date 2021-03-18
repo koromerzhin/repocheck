@@ -24,6 +24,7 @@
             :href="props.row.url"
             target="_blank"
           >
+            <br />
             {{ props.row.login }}<span v-if="props.row.name!==null"> ({{ props.row.name }})</span>
           </a>
 
@@ -50,23 +51,25 @@
           key="repositories"
           :props="props"
         >
-          <a
-            :href="props.row.url + '?tab=repositories'"
-            target="_blank"
+          <router-link
+            :to="{name: 'user-repositories', params: {'login': props.row.login }}"
+            v-if="props.row.repositories.totalCount !== 0"
           >
-          {{ props.row.repositories.totalCount }}
-          </a>
+            {{ props.row.repositories.totalCount }}
+          </router-link>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="stars"
           :props="props"
         >
-          <a
-            :href="props.row.url + '?tab=stars'"
-            target="_blank"
+          <router-link
+            :to="{name: 'user-stars', params: {'login': props.row.login }}"
+            v-if="props.row.starredRepositories.totalCount !== 0"
           >
-          {{ props.row.starredRepositories.totalCount }}
-          </a>
+            {{ props.row.starredRepositories.totalCount }}
+          </router-link>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="bio"
@@ -108,14 +111,14 @@ export default {
         {
           label: 'repositories',
           sortable: true,
-          field: row => row.repositories.count,
+          field: row => row.repositories.totalCount,
           align: 'left',
           name: 'repositories'
         },
         {
           label: 'stars',
           sortable: true,
-          field: row => row.repositories.count,
+          field: row => row.starredRepositories.totalCount,
           align: 'left',
           name: 'stars'
         },

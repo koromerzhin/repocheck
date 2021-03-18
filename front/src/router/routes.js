@@ -9,7 +9,9 @@ const routes = [
       { path: 'private', name: 'private', component: () => import('pages/Private.vue') },
       { path: 'followers', name: 'followers', component: () => import('pages/Followers.vue') },
       { path: 'following', name: 'following', component: () => import('pages/Following.vue') },
-      { path: 'star', name: 'star', component: () => import('pages/Star.vue') }
+      { path: 'star', name: 'star', component: () => import('pages/Star.vue') },
+      { path: 'user/repositories/:login', name: 'user-repositories', component: () => import('pages/User/Repositories.vue') },
+      { path: 'user/stars/:login', name: 'user-stars', component: () => import('pages/User/Stars.vue') }
     ]
   },
 

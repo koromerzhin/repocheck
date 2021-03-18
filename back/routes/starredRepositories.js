@@ -28,6 +28,9 @@ async function getStar(param)
             login
             avatarUrl
             url
+            repositories{
+              totalCount
+            }
           }
           createdAt
           sshUrl
