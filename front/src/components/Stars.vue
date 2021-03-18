@@ -28,6 +28,18 @@
           </a>
         </q-td>
         <q-td
+          key="userrepository"
+          :props="props"
+        >
+          <router-link
+            :to="{name: 'user-repositories', params: {'login': props.row.owner.login }}"
+            v-if="props.row.owner.repositories.totalCount !== 0"
+          >
+            {{ props.row.owner.repositories.totalCount }}
+          </router-link>
+          <div v-else>---</div>
+        </q-td>
+        <q-td
           key="title"
           :props="props"
         >
@@ -43,33 +55,39 @@
           :props="props"
         >
           <a
-            :href="props.row.owner.url + '/stargazers'"
+            :href="props.row.url + '/stargazers'"
             target="_blank"
+            v-if="props.row.ownstargazerCount !== 0"
           >
             {{ props.row.stargazerCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="fork"
           :props="props"
         >
           <a
-            :href="props.row.owner.url + '/network/members'"
+            :href="props.row.url + '/network/members'"
             target="_blank"
+            v-if="props.row.forkCount !== 0"
           >
             {{ props.row.forkCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="release"
           :props="props"
         >
           <a
-            :href="props.row.owner.url + '/releases'"
+            :href="props.row.url + '/releases'"
             target="_blank"
+            v-if="props.row.releases.totalCount !== 0"
           >
             {{ props.row.releases.totalCount }}
           </a>
+          <div v-else>---</div>
         </q-td>
         <q-td
           key="isArchived"
@@ -77,12 +95,6 @@
         >
           <span v-if="props.row.isArchived">YES</span>
           <span v-else>NO</span>
-        </q-td>
-        <q-td
-          key="topics"
-          :props="props"
-        >
-          {{ props.row.repositoryTopics.totalCount }}
         </q-td>
         <q-td
           key="information"
@@ -103,6 +115,11 @@
           <div class="my-table-details">
             {{ props.row.description }}
           </div>
+          <span
+            v-if="props.row.licenseInfo !== null"
+          >
+            {{ props.row.licenseInfo.name }}
+          </span>
           <div class="row">
             <div class="col">
               <a
@@ -161,16 +178,6 @@
           </div>
         </q-td>
         <q-td
-          key="licenseInfo"
-          :props="props"
-        >
-          <span
-            v-if="props.row.licenseInfo !== null"
-          >
-            {{ props.row.licenseInfo.name }}
-          </span>
-        </q-td>
-        <q-td
           key="updatedat"
           :props="props"
         >
@@ -208,6 +215,13 @@ export default {
           name: 'user'
         },
         {
+          label: 'User Repository',
+          sortable: true,
+          field: row => row.owner.repositories.totalCount,
+          align: 'left',
+          name: 'userrepository'
+        },
+        {
           label: 'Name',
           sortable: true,
           field: row => row.name,
@@ -243,24 +257,10 @@ export default {
           name: 'isArchived'
         },
         {
-          label: 'Topics',
-          sortable: true,
-          field: row => row.repositoryTopics.totalCount,
-          align: 'left',
-          name: 'topics'
-        },
-        {
           label: 'Information',
           sortable: false,
           align: 'left',
           name: 'information'
-        },
-        {
-          label: 'license',
-          sortable: true,
-          field: row => row.licenseInfo.name,
-          align: 'left',
-          name: 'licenseInfo'
         },
         {
           label: 'Updated At',
