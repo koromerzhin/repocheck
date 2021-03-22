@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const url = 'http://back-repocheck.traefik.me/'
+const url = 'http://repocheck.traefik.me/back/'
 import Stars from 'src/components/Stars'
 
 export default {

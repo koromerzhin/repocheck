@@ -28,14 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/repositories/', repositoriesRouter);
-app.use('/user/', userRouter);
-app.use('/gists/', gistsRouter);
-app.use('/starredRepositories/', starredRepositoriesRouter);
+app.use('/back/', indexRouter);
+app.use('/back/repositories/', repositoriesRouter);
+app.use('/back/user/', userRouter);
+app.use('/back/gists/', gistsRouter);
+app.use('/back/starredRepositories/', starredRepositoriesRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
+  console.log(req)
   next(createError(404));
 });
 
