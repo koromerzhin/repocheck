@@ -10,6 +10,9 @@ FRONTFULLNAME   := $(FRONT).1.$$(docker service ps -f 'name=$(FRONT)' $(FRONT) -
 BACK           := $(STACK)_back
 BACKFULLNAME   := $(BACK).1.$$(docker service ps -f 'name=$(BACK)' $(BACK) -q --no-trunc | head -n1)
 
+BUILD           := $(STACK)_build
+BUILDFULLNAME   := $(BUILD).1.$$(docker service ps -f 'name=$(BUILD)' $(BUILD) -q --no-trunc | head -n1)
+
 SUPPORTED_COMMANDS := contributors docker logs git linter update inspect ssh sleep
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
 ifneq "$(SUPPORTS_MAKE_ARGS)" ""
@@ -78,6 +81,8 @@ else ifeq ($(COMMAND_ARGS),front)
 	@docker service logs -f --tail 100 --raw $(FRONTFULLNAME)
 else ifeq ($(COMMAND_ARGS),back)
 	@docker service logs -f --tail 100 --raw $(BACKFULLNAME)
+else ifeq ($(COMMAND_ARGS),build)
+	@docker service logs -f --tail 100 --raw $(BUILDFULLNAME)
 else
 	@echo "ARGUMENT missing"
 	@echo "---"
@@ -86,6 +91,7 @@ else
 	@echo "stack: logs stack"
 	@echo "front: FRONT"
 	@echo "back: BACK"
+	@echo "build: BUILD"
 endif
 
 .PHONY: git
@@ -134,6 +140,8 @@ ifeq ($(COMMAND_ARGS),front)
 	@docker exec -it $(FRONTFULLNAME) /bin/bash
 else ifeq ($(COMMAND_ARGS),back)
 	@docker exec -it $(BACKFULLNAME) /bin/bash
+else ifeq ($(COMMAND_ARGS),build)
+	@docker exec -it $(BUILDFULLNAME) /bin/sh
 else
 	@echo "ARGUMENT missing"
 	@echo "---"
@@ -141,6 +149,7 @@ else
 	@echo "---"
 	@echo "front: FRONT"
 	@echo "back: BACK"
+	@echo "build: BUILD"
 endif
 
 .PHONY: inspect
@@ -149,6 +158,8 @@ ifeq ($(COMMAND_ARGS),front)
 	@docker service inspect $(FRONT)
 else ifeq ($(COMMAND_ARGS),back)
 	@docker service inspect $(BACK)
+else ifeq ($(COMMAND_ARGS),build)
+	@docker service inspect $(BUILD)
 else
 	@echo "ARGUMENT missing"
 	@echo "---"
@@ -156,6 +167,7 @@ else
 	@echo "---"
 	@echo "front: FRONT"
 	@echo "back: BACK"
+	@echo "build: BUILD"
 endif
 
 .PHONY: update
@@ -164,6 +176,8 @@ ifeq ($(COMMAND_ARGS),front)
 	@docker service update $(FRONT)
 else ifeq ($(COMMAND_ARGS),back)
 	@docker service update $(BACK)
+else ifeq ($(COMMAND_ARGS),build)
+	@docker service update $(BUILD)
 else
 	@echo "ARGUMENT missing"
 	@echo "---"
@@ -171,4 +185,5 @@ else
 	@echo "---"
 	@echo "front: FRONT"
 	@echo "back: BACK"
+	@echo "build: BUILD"
 endif

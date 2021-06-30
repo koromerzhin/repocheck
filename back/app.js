@@ -12,8 +12,15 @@ var repositoriesRouter = require('./routes/repositories');
 var starredRepositoriesRouter = require('./routes/starredRepositories');
 
 var app = express();
+var whitelist = ['http://repocheck.traefik.me', 'http://build-repocheck.traefik.me'];
 var corsOptions = {
-  origin: 'http://repocheck.traefik.me',
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by cors'));
+    }
+  },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions));
