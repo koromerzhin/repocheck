@@ -30,6 +30,7 @@ Hosts:
 
 - repocheck.traefik.me
 - back-repocheck.traefik.me
+- build-repocheck.traefik.me
 
 ## Install
 
