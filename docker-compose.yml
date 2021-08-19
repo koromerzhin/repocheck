@@ -1,7 +1,7 @@
 
 version: "3.4"
 networks:
-  proxynetwork:
+  proxylampy:
     external: true
   net:
     driver: overlay
@@ -32,7 +32,7 @@ services:
     volumes:
       - ${PWD}/prod:/usr/share/nginx/html
     networks:
-      - proxynetwork
+      - proxylampy
       - net
     depends_on:
       - back
@@ -46,7 +46,7 @@ services:
     volumes:
       - ${PWD}/front:/app
     networks:
-      - proxynetwork
+      - proxylampy
       - net
     depends_on:
       - back
@@ -60,7 +60,7 @@ services:
     volumes:
       - ${PWD}/back:/app
     networks:
-      - proxynetwork
+      - proxylampy
       - net
     deploy:
       labels:
