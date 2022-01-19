@@ -23,7 +23,7 @@
   "homepage": "https://github.com/koromerzhin/repocheck#readme",
   "devDependencies": {
     "generate-changelog": "1.8.0",
-    "jscpd": "3.3.25"
+    "jscpd": "3.4.5"
   },
   "dependencies": {
     "koromerzhin-dependencies": "^1.1.1"
