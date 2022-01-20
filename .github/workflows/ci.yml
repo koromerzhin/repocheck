@@ -23,10 +23,8 @@ jobs:
       - name: Install npm dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: make node_modules
-      - name: 'Docker swarm init'
-        run: make docker swarm-init
-      - name: 'Create proxy network'
-        run: make docker create-network
+      - name: 'Launch Lampy'
+        run: make lampy
       - name: 'Image pull'
         run: make docker image-pull
       - name: 'Build containers'
