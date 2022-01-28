@@ -141,11 +141,11 @@ export default {
         params: params
       }
     )
-    if (store.getters.getStar.length === result.data.viewer.starredRepositories.totalCount) {
+    if (store.getters.getStars.length === result.data.viewer.starredRepositories.totalCount) {
       return
     }
 
-    if (store.getters.getStar.length !== result.data.viewer.starredRepositories.totalCount && params.after === undefined) {
+    if (store.getters.getStars.length !== result.data.viewer.starredRepositories.totalCount && params.after === undefined) {
       store.commit('clearStar')
     }
 
