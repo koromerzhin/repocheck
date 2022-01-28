@@ -12,14 +12,10 @@ var repositoriesRouter = require('./routes/repositories');
 var starredRepositoriesRouter = require('./routes/starredRepositories');
 
 var app = express();
-var whitelist = ['http://repocheck.traefik.me', 'http://build-repocheck.traefik.me'];
+var whitelist = ['http://repocheck.traefik.me', 'https://repocheck.traefik.me', 'http://build-repocheck.traefik.me', 'https://build-repocheck.traefik.me'];
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by cors'));
-    }
+    callback(null, true);
   },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const url = 'http://repocheck.traefik.me/back/'
+const url = '/back/'
 import Repositories from 'src/components/Repositories'
 
 export default {

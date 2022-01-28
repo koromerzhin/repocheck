@@ -53,30 +53,38 @@ async function getFollow(type, param)
 
 /* GET home page. */
 router.get('/following', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    const result = await getFollow('following', params);
+    res.json(result);
+  } catch(error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getFollow('following', params);
-  res.json(result);
 });
 
 /* GET home page. */
 router.get('/followers', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    const result = await getFollow('followers', params);
+    res.json(result);
+  } catch(error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getFollow('followers', params);
-  res.json(result);
 });
 router.get('/', async function (req, res, next) {
   res.send('test');

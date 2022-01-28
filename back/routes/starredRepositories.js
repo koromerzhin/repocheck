@@ -74,16 +74,20 @@ async function getStar(param)
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}, orderBy: {field: STARRED_AT, direction: DESC}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    const result = await getStar(params);
+    res.json(result);
+  } catch (error) {
+    res.send(error);
   }
-  let params = `first:${total}, orderBy: {field: STARRED_AT, direction: DESC}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getStar(params);
-  res.json(result);
 });
 
 module.exports = router;

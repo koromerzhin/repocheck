@@ -152,34 +152,42 @@ async function getRepositories(login, param)
   return await graphqlWithAuth(query)
 }
 router.get('/repositories', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    let result = []
+    if (req.query['login'] !== undefined) {
+      result = await getRepositories(req.query.login, params);
+    }
+    res.json(result);
+  } catch (error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  let result = []
-  if (req.query['login'] !== undefined) {
-    result = await getRepositories(req.query.login, params);
-  }
-  res.json(result);
 });
 router.get('/stars', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    let result = []
+    if (req.query['login'] !== undefined) {
+      result = await getStar(req.query.login, params);
+    }
+    res.json(result);
+  } catch (error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  let result = []
-  if (req.query['login'] !== undefined) {
-    result = await getStar(req.query.login, params);
-  }
-  res.json(result);
 });
 
 module.exports = router;

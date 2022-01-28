@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://repocheck.traefik.me/back/'
+const url = '/back/'
 
 export default {
   async getRepositoriesPublic (store, params) {

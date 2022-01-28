@@ -93,28 +93,36 @@ async function getRepositories(privacy, param)
 
 /* GET home page. */
 router.get('/public', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    const result = await getRepositories('PUBLIC,', params);
+    res.json(result);
+  } catch (error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getRepositories('PUBLIC,', params);
-  res.json(result);
 });
 router.get('/private', async function (req, res, next) {
-  let total = totalParPage;
-  if (req.query['total'] !== undefined) {
-    total = parseInt(req.query['total']);
+  try {
+    let total = totalParPage;
+    if (req.query['total'] !== undefined) {
+      total = parseInt(req.query['total']);
+    }
+    let params = `first:${total}`;
+    if (req.query['after'] !== undefined) {
+      params += ` after:"${req.query['after']}"`
+    }
+    const result = await getRepositories('PRIVATE,', params);
+    res.json(result);
+  } catch (error) {
+    res.send(error);
   }
-  let params = `first:${total}`;
-  if (req.query['after'] !== undefined) {
-    params += ` after:"${req.query['after']}"`
-  }
-  const result = await getRepositories('PRIVATE,', params);
-  res.json(result);
 });
 
 module.exports = router;
