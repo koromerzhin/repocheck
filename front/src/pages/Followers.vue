@@ -2,6 +2,8 @@
   <div>
     <Follows
       title="Followers"
+      :unfollow=false
+      :follow=true
       :follows="follows"
     />
   </div>

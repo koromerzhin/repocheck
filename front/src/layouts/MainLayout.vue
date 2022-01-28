@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      length: 50
+      length: 100
     }
   },
   mounted () {
@@ -78,19 +78,19 @@ export default {
   },
   computed: {
     countRepositoriesPublic () {
-      return this.$store.getters['github/getCountRepositoriesPublic']
+      return this.$store.getters['github/getRepositoriesPublic'].length
     },
     countRepositoriesPrivate () {
-      return this.$store.getters['github/getCountRepositoriesPrivate']
+      return this.$store.getters['github/getRepositoriesPrivate'].length
     },
     countFollowers () {
-      return this.$store.getters['github/getCountFollowers']
+      return this.$store.getters['github/getFollowers'].length
     },
     countFollowing () {
-      return this.$store.getters['github/getCountFollowing']
+      return this.$store.getters['github/getFollowing'].length
     },
     countStar () {
-      return this.$store.getters['github/getCountStar']
+      return this.$store.getters['github/getStars'].length
     }
   }
 }

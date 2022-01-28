@@ -2,6 +2,8 @@
   <div>
     <Repositories
       title="Repositories public"
+      :star=false
+      :yours=true
       :repositories="repositories"
     />
   </div>

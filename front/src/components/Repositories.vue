@@ -21,6 +21,8 @@
           >
             {{ props.row.name }}
           </a>
+          <br />
+          <q-btn v-if="star == true" v-on:click="addstar(props.row.id);" color="white" text-color="black" label="add Star"></q-btn>
         </q-td>
         <q-td
           key="watchers"
@@ -106,7 +108,7 @@
           <div class="my-table-details">
             {{ props.row.description }}
           </div>
-          <div v-if="props.row.defaultBranchRef !== null">
+          <div v-if="props.row.defaultBranchRef !== null && yours == true">
             <a
               :href="props.row.url + '/actions'"
               target="_blank"
@@ -248,9 +250,18 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Repositories',
   props: {
+    yours: {
+      type: Boolean,
+      default: false
+    },
+    star: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String,
       default: ''
@@ -262,6 +273,26 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    addstar: async function (idRepository) {
+      await axios.get(
+        '/back/action/star/add',
+        {
+          params: {
+            id: idRepository
+          }
+        }
+      )
+      Promise.all(
+        [
+          this.$store.commit('github/clearStar'),
+          this.$store.dispatch('github/getStar', {
+            total: 50
+          })
+        ]
+      )
     }
   },
   data () {

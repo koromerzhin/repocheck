@@ -26,6 +26,8 @@
           >
             {{ props.row.owner.login }}
           </a>
+          <br />
+          <q-btn v-on:click="removestar(props.row.id);" color="white" text-color="black" label="remove Star"></q-btn>
         </q-td>
         <q-td
           key="userrepository"
@@ -189,6 +191,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Stars',
   props: {
@@ -203,6 +206,26 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    removestar: async function (idRepository) {
+      await axios.get(
+        '/back/action/star/remove',
+        {
+          params: {
+            id: idRepository
+          }
+        }
+      )
+      Promise.all(
+        [
+          this.$store.commit('github/clearStar'),
+          this.$store.dispatch('github/getStar', {
+            total: 50
+          })
+        ]
+      )
     }
   },
   data () {

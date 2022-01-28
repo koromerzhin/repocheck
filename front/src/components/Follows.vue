@@ -27,7 +27,6 @@
             <br />
             {{ props.row.login }}<span v-if="props.row.name!==null"> ({{ props.row.name }})</span>
           </a>
-
           <ul>
             <li>
               <b>Created AT</b> : {{ props.row.createdAt }}
@@ -46,6 +45,9 @@
           >
           {{ props.row.websiteUrl }}
           </a>
+          <br />
+          <q-btn v-if="unfollow == true" v-on:click="actionunfollow(props.row.id);" color="white" text-color="black" label="Unfollow"></q-btn>
+          <q-btn v-if="follow == true" v-on:click="actionfollow(props.row.id);" color="white" text-color="black" label="follow"></q-btn>
         </q-td>
         <q-td
           key="repositories"
@@ -83,9 +85,18 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Follows',
   props: {
+    unfollow: {
+      type: Boolean,
+      default: false
+    },
+    follow: {
+      type: Boolean,
+      default: false
+    },
     follows: {
       type: Array,
       default: null
@@ -97,6 +108,48 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    actionunfollow: async function (idUser) {
+      await axios.get(
+        '/back/action/unfollow/',
+        {
+          params: {
+            id: idUser
+          }
+        }
+      )
+      this.getFollowersFollowing()
+    },
+    actionfollow: async function (idUser) {
+      await axios.get(
+        '/back/action/follow/',
+        {
+          params: {
+            id: idUser
+          }
+        }
+      )
+      this.getFollowersFollowing()
+    },
+    getFollowersFollowing: function () {
+      Promise.all(
+        [
+          this.$store.commit('github/clearFollowers'),
+          this.$store.commit('github/clearFollowing')
+        ]
+      )
+      Promise.all(
+        [
+          this.$store.dispatch('github/getFollowers', {
+            total: 50
+          }),
+          this.$store.dispatch('github/getFollowing', {
+            total: 50
+          })
+        ]
+      )
     }
   },
   data () {

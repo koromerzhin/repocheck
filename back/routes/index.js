@@ -23,6 +23,7 @@ async function getFollow(type, param)
           startCursor
         }
         nodes {
+          id
           bio
           url
           bioHTML

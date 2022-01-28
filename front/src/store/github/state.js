@@ -6,11 +6,6 @@ export default function () {
     },
     followers: [],
     following: [],
-    star: [],
-    countRepositoriesPublic: 0,
-    countRepositoriesPrivate: 0,
-    countFollowers: 0,
-    countFollowing: 0,
-    countStar: 0
+    star: []
   }
 }

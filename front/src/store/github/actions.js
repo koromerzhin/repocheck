@@ -10,11 +10,17 @@ export default {
         params: params
       }
     )
+    if (store.getters.getRepositoriesPublic.length === result.data.viewer.repositories.totalCount) {
+      return
+    }
+
+    if (store.getters.getRepositoriesPublic.length !== result.data.viewer.repositories.totalCount && params.after === undefined) {
+      store.commit('clearRepositoryPublic')
+    }
     result.data.viewer.repositories.nodes.forEach(repository => {
       store.commit('addRepositoryPublic', repository)
     })
 
-    store.dispatch('setCountRepositoriesPublic', result.data.viewer.repositories.totalCount)
     if (store.getters.getRepositoriesPublic.length !== result.data.viewer.repositories.totalCount) {
       params.after = result.data.viewer.repositories.pageInfo.endCursor
       store.dispatch('getRepositoriesPublic', params)
@@ -30,11 +36,18 @@ export default {
         params: params
       }
     )
+    if (store.getters.getRepositoriesPrivate.length === result.data.viewer.repositories.totalCount) {
+      return
+    }
+
+    if (store.getters.getRepositoriesPrivate.length !== result.data.viewer.repositories.totalCount && params.after === undefined) {
+      store.commit('clearRepositoryPrivate')
+    }
+
     result.data.viewer.repositories.nodes.forEach(repository => {
       store.commit('addRepositoryPrivate', repository)
     })
 
-    store.dispatch('setCountRepositoriesPrivate', result.data.viewer.repositories.totalCount)
     if (store.getters.getRepositoriesPrivate.length !== result.data.viewer.repositories.totalCount) {
       params.after = result.data.viewer.repositories.pageInfo.endCursor
       store.dispatch('getRepositoriesPrivate', params)
@@ -62,11 +75,18 @@ export default {
         params: params
       }
     )
+    if (store.getters.getFollowers.length === result.data.viewer.followers.totalCount) {
+      return
+    }
+
+    if (store.getters.getFollowers.length !== result.data.viewer.followers.totalCount && params.after === undefined) {
+      store.commit('clearFollowers')
+    }
+
     result.data.viewer.followers.nodes.forEach(follower => {
       store.commit('addFollowers', follower)
     })
 
-    store.dispatch('setCountFollowers', result.data.viewer.followers.totalCount)
     if (store.getters.getFollowers.length !== result.data.viewer.followers.totalCount) {
       params.after = result.data.viewer.followers.pageInfo.endCursor
       store.dispatch('getFollowers', params)
@@ -88,11 +108,18 @@ export default {
         params: params
       }
     )
+    if (store.getters.getFollowing.length === result.data.viewer.following.totalCount) {
+      return
+    }
+
+    if (store.getters.getFollowing.length !== result.data.viewer.following.totalCount && params.after === undefined) {
+      store.commit('clearFollowing')
+    }
+
     result.data.viewer.following.nodes.forEach(follower => {
       store.commit('addFollowing', follower)
     })
 
-    store.dispatch('setCountFollowing', result.data.viewer.following.totalCount)
     if (store.getters.getFollowing.length !== result.data.viewer.following.totalCount) {
       params.after = result.data.viewer.following.pageInfo.endCursor
       store.dispatch('getFollowing', params)
@@ -114,11 +141,18 @@ export default {
         params: params
       }
     )
+    if (store.getters.getStar.length === result.data.viewer.starredRepositories.totalCount) {
+      return
+    }
+
+    if (store.getters.getStar.length !== result.data.viewer.starredRepositories.totalCount && params.after === undefined) {
+      store.commit('clearStar')
+    }
+
     result.data.viewer.starredRepositories.nodes.forEach(starredRepository => {
       store.commit('addStar', starredRepository)
     })
 
-    store.dispatch('setCountStar', result.data.viewer.starredRepositories.totalCount)
     if (store.getters.getStars.length !== result.data.viewer.starredRepositories.totalCount) {
       params.after = result.data.viewer.starredRepositories.pageInfo.endCursor
       store.dispatch('getStar', params)

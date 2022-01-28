@@ -2,6 +2,8 @@
   <div>
       <Repositories
         :title="'Repositories '+$route.params.login"
+        :star=true
+        :yours=false
         :repositories="repositories"
       />
   </div>

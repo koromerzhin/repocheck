@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 import github from './github'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
 
@@ -15,7 +15,11 @@ Vue.use(Vuex)
  */
 
 export default function (/* { ssrContext } */) {
+  const vuexLocal = new VuexPersistence({
+    storage: window.sessionStorage
+  })
   const Store = new Vuex.Store({
+    plugins: [vuexLocal.plugin],
     modules: {
       github
     },
