@@ -31,6 +31,14 @@ Hosts:
 - repocheck.traefik.me
 - build-repocheck.traefik.me
 
+## Download
+
+```sh
+git clone git@github.com:koromerzhin/repocheck.git repocheck
+cd repocheck
+git submodule update --init
+```
+
 ## Install
 
 ```sh
