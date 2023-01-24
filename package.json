@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "description": "Check mes repos github",
   "scripts": {
-    "linter-markdown": "markdownlint",
-    "contributors": "all-contributors",
-    "readme": "readme",
-    "licenses": "license-checker",
-    "changelog": "changelog",
-    "jscpd": "jscpd front back"
+    "lint:markdown": "markdownlint README.md"
   },
   "repository": {
     "type": "git",
@@ -22,6 +17,6 @@
   },
   "homepage": "https://github.com/koromerzhin/repocheck#readme",
   "dependencies": {
-    "koromerzhin-dependencies": "^1.1.1"
+    "korojscommands": "^1.2.11"
   }
 }

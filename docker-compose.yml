@@ -1,8 +1,6 @@
 
 version: "3.4"
 networks:
-  proxylampy:
-    external: true
   net:
     driver: overlay
     attachable: true
@@ -12,17 +10,9 @@ services:
     volumes:
       - ${PWD}/prod:/usr/share/nginx/html
     networks:
-      - proxylampy
       - net
     depends_on:
       - back
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.build-repocheck.rule=Host(`repocheck.traefik.me`) && PathPrefix(`/build`)"
-        - "traefik.http.routers.build-repocheck-tls.tls.domains[0].main=repocheck.traefik.me"
-        - "traefik.http.routers.build-repocheck.tls=true"
-        - "traefik.http.services.build-repocheck.loadbalancer.server.port=80"
   front:
     image: node:15.14.0
     working_dir: /app
@@ -31,17 +21,9 @@ services:
     volumes:
       - ${PWD}/front:/app
     networks:
-      - proxylampy
       - net
     depends_on:
       - back
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.front-repocheck.rule=Host(`repocheck.traefik.me`)"
-        - "traefik.http.routers.front-repocheck-tls.tls.domains[0].main=repocheck.traefik.me"
-        - "traefik.http.routers.front-repocheck.tls=true"
-        - "traefik.http.services.front-repocheck.loadbalancer.server.port=80"
   back:
     image: node:15.14.0
     working_dir: /app
@@ -50,12 +32,4 @@ services:
     volumes:
       - ${PWD}/back:/app
     networks:
-      - proxylampy
       - net
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.back-repocheck.rule=Host(`repocheck.traefik.me`) && PathPrefix(`/back`)"
-        - "traefik.http.routers.back-repocheck-tls.tls.domains[0].main=repocheck.traefik.me"
-        - "traefik.http.routers.back-repocheck.tls=true"
-        - "traefik.http.services.back-repocheck.loadbalancer.server.port=3000"

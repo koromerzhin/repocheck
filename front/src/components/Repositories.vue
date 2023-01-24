@@ -114,7 +114,7 @@
               target="_blank"
             >
                 <q-img
-                  :src="props.row.url +'/workflows/Continuous%20Integration/badge.svg?branch=' +props.row.defaultBranchRef.name"
+                  :src="props.row.url +'/workflows/ci/badge.svg?branch=' +props.row.defaultBranchRef.name"
                   style="width:205px; height: 20px;"
                 />
             </a>
