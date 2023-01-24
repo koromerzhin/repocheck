@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Check mes repos github",
   "scripts": {
+    "docker:deploy": "korojscommands docker_deploy",
+    "docker:getpull-image": "korojscommands docker_getpull-image",
+    "docker:ls": "korojscommands docker_ls",
+    "docker:waiting": "korojscommands docker_waiting --status running --container front back",
+    "exec": "npm-run-all docker:getpull-image docker:deploy docker:waiting docker:ls",
     "lint:markdown": "markdownlint README.md"
   },
   "repository": {
